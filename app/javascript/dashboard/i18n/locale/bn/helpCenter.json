@@ -853,7 +853,7 @@
       "CONFIRM_BUTTON_LABEL": "তৈরি করুন",
       "NAME": {
         "LABEL": "নাম",
-        "PLACEHOLDER": "ব্যবহারকারী গাইড | Chatwoot",
+        "PLACEHOLDER": "ব্যবহারকারী গাইড | Tuntas",
         "MESSAGE": "আপনার পোর্টালের জন্য একটি নাম নির্বাচন করুন.",
         "ERROR": "নাম আবশ্যক"
       },
@@ -976,7 +976,7 @@
         "HEADER": "ইন্টিগ্রেশন",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with Tuntas",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "লাইভ চ্যাট উইজেট নির্বাচন করুন",
           "NONE_OPTION": "কোনো উইজেট নেই"

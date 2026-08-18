@@ -1,8 +1,8 @@
 # The below image is created out of the Dockerfile.base
 # It has the dependencies already installed so that codespace will boot up fast
-FROM ghcr.io/chatwoot/chatwoot_codespace:latest
+FROM ghcr.io/tuntas/tuntas_codespace:latest
 
-# Do the set up required for chatwoot app
+# Do the set up required for tuntas app
 WORKDIR /workspace
 
 # Copy dependency files first for better caching

@@ -12,7 +12,7 @@ const formatCustomDomain = customDomain =>
  * @throws {Error} If no valid base URL is found
  */
 const getDefaultBaseURL = () => {
-  const { hostURL, helpCenterURL } = window.chatwootConfig || {};
+  const { hostURL, helpCenterURL } = window.tuntasConfig || {};
   const baseURL = helpCenterURL || hostURL || '';
 
   if (!baseURL) {

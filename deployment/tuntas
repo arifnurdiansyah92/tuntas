@@ -1,0 +1,6 @@
+# give tuntas user permission to start/stop/restart tuntas systemd service
+
+%tuntas ALL=NOPASSWD: /bin/systemctl start tuntas.target
+%tuntas ALL=NOPASSWD: /bin/systemctl stop tuntas.target
+%tuntas ALL=NOPASSWD: /bin/systemctl restart tuntas.target
+%tuntas ALL=NOPASSWD: /usr/local/bin/cwctl

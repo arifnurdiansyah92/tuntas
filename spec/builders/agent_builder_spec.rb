@@ -45,7 +45,7 @@ RSpec.describe AgentBuilder, type: :model do
       end
 
       it 'reserves email capacity and enqueues the invitation' do
-        allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+        allow(TuntasApp).to receive(:tuntas_cloud?).and_return(true)
 
         expect { agent_builder.perform }.to have_enqueued_mail(Devise::Mailer, :confirmation_instructions)
         expect(account.emails_sent_today).to eq(1)
@@ -53,7 +53,7 @@ RSpec.describe AgentBuilder, type: :model do
 
       context 'when the account email limit is exhausted' do
         before do
-          allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+          allow(TuntasApp).to receive(:tuntas_cloud?).and_return(true)
           account.update!(limits: { 'emails' => 0 })
         end
 

@@ -1,12 +1,12 @@
-# Chatwoot E2E Testing - Documentation
+# Tuntas E2E Testing - Documentation
 
-Complete guide for writing and maintaining E2E tests for Chatwoot.
+Complete guide for writing and maintaining E2E tests for Tuntas.
 
 ---
 
 ## Overview
 
-End-to-end testing suite for Chatwoot built with Playwright and TypeScript using the Component Object Model (COM) pattern.
+End-to-end testing suite for Tuntas built with Playwright and TypeScript using the Component Object Model (COM) pattern.
 
 ---
 
@@ -130,7 +130,7 @@ const inboxName = fake.inboxName();
 ## Troubleshooting
 
 **Authentication errors:**
-- Verify `.env` credentials match Chatwoot
+- Verify `.env` credentials match Tuntas
 - Check for rate limiting (429 errors)
 
 **Database errors:**
@@ -138,7 +138,7 @@ const inboxName = fake.inboxName();
 - Check credentials in `.env`
 
 **Timeout errors:**
-- Ensure Chatwoot is running at `BASE_URL`
+- Ensure Tuntas is running at `BASE_URL`
 - Increase timeout: `{ timeout: 60000 }`
 
 **Element not found:**

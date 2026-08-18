@@ -19,7 +19,7 @@ class Whatsapp::TemplateContentRendererService
 
   def prepare_content
     replacements = {}
-    replacement_prefix = "__chatwoot_whatsapp_template_param_#{SecureRandom.hex(8)}_"
+    replacement_prefix = "__tuntas_whatsapp_template_param_#{SecureRandom.hex(8)}_"
     content_to_render = @content.gsub(/{{\s*([^}]+?)\s*}}/) do |placeholder|
       replace_placeholder(placeholder, Regexp.last_match(1), replacement_prefix, replacements)
     end

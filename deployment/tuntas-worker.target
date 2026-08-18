@@ -1,0 +1,6 @@
+[Unit]
+Description=Tuntas Background Worker
+Wants=tuntas-worker.1.service
+
+[Install]
+WantedBy=multi-user.target

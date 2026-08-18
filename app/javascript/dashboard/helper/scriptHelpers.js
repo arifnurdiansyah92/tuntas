@@ -1,7 +1,7 @@
 import {
   ANALYTICS_IDENTITY,
-  CHATWOOT_RESET,
-  CHATWOOT_SET_USER,
+  TUNTAS_RESET,
+  TUNTAS_SET_USER,
 } from '../constants/appEvents';
 import AnalyticsHelper from './AnalyticsHelper';
 import DashboardAudioNotificationHelper from './AudioAlerts/DashboardAudioNotificationHelper';
@@ -34,21 +34,21 @@ export const initializeAudioAlerts = user => {
   });
 };
 
-export const initializeChatwootEvents = () => {
-  emitter.on(CHATWOOT_RESET, () => {
-    if (window.$chatwoot) {
-      window.$chatwoot.reset();
+export const initializeTuntasEvents = () => {
+  emitter.on(TUNTAS_RESET, () => {
+    if (window.$tuntas) {
+      window.$tuntas.reset();
     }
   });
-  emitter.on(CHATWOOT_SET_USER, ({ user }) => {
-    if (window.$chatwoot) {
-      window.$chatwoot.setUser(user.email, {
+  emitter.on(TUNTAS_SET_USER, ({ user }) => {
+    if (window.$tuntas) {
+      window.$tuntas.setUser(user.email, {
         avatar_url: user.avatar_url,
         email: user.email,
         identifier_hash: user.hmac_identifier,
         name: user.name,
       });
-      window.$chatwoot.setCustomAttributes({
+      window.$tuntas.setCustomAttributes({
         signedUpAt: user.created_at,
         cloudCustomer: 'true',
         account_id: user.account_id,

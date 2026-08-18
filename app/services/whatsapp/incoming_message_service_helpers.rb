@@ -27,7 +27,7 @@ module Whatsapp::IncomingMessageServiceHelpers
   def message_content(message)
     return I18n.t('conversations.messages.whatsapp.flow_response') if message.dig(:interactive, :nfm_reply).present?
 
-    # TODO: map interactive messages back to button messages in chatwoot
+    # TODO: map interactive messages back to button messages in tuntas
     message.dig(:text, :body) ||
       message.dig(:button, :text) ||
       message.dig(:interactive, :button_reply, :title) ||

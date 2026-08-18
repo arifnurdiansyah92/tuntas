@@ -853,7 +853,7 @@
       "CONFIRM_BUTTON_LABEL": "Créer",
       "NAME": {
         "LABEL": "Nom",
-        "PLACEHOLDER": "Guide d'utilisation | Chatwoot",
+        "PLACEHOLDER": "Guide d'utilisation | Tuntas",
         "MESSAGE": "Choisissez un nom pour votre portail.",
         "ERROR": "Le nom est requis"
       },
@@ -976,7 +976,7 @@
         "HEADER": "Intégrations",
         "DESCRIPTION": "Connectez des outils qui étendent ce que votre centre d'aide peut faire.",
         "LIVE_CHAT": {
-          "TITLE": "Chat en direct avec Chatwoot",
+          "TITLE": "Chat en direct avec Tuntas",
           "DESCRIPTION": "Montrez un widget de chat en direct sur votre centre d'aide pour que les visiteurs puissent vous joindre pendant qu'ils lisent.",
           "PLACEHOLDER": "Sélectionnez le widget de chat en direct",
           "NONE_OPTION": "Aucun widget"

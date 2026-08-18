@@ -17,7 +17,7 @@ const globalConfig = useMapGetter('globalConfig/get');
 const enabledFeatures = computed(() => currentAccount.value?.features || {});
 
 const hasTiktokConfigured = computed(() => {
-  return window.chatwootConfig?.tiktokAppId;
+  return window.tuntasConfig?.tiktokAppId;
 });
 
 const channelList = computed(() => {

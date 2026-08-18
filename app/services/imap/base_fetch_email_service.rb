@@ -120,7 +120,7 @@ class Imap::BaseFetchEmailService
 
   def build_message_id_entry(data)
     mail = build_mail_from_string(data.attr['BODY[HEADER]'])
-    return nil if MailPresenter.new(mail, channel.account).notification_email_from_chatwoot?
+    return nil if MailPresenter.new(mail, channel.account).notification_email_from_tuntas?
 
     message_id = mail.message_id
     return nil if message_id.blank?

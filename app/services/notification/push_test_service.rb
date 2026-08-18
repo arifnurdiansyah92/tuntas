@@ -5,7 +5,7 @@ class Notification::PushTestService
   DEFAULT_BODY = 'This is a test from our team to check notification delivery on your device. No action needed.'.freeze
 
   def self.default_title
-    format(DEFAULT_TITLE, installation_name: GlobalConfigService.load('INSTALLATION_NAME', 'Chatwoot'))
+    format(DEFAULT_TITLE, installation_name: GlobalConfigService.load('INSTALLATION_NAME', 'Tuntas'))
   end
 
   def self.default_body
@@ -52,7 +52,7 @@ class Notification::PushTestService
   def test_fcm(subscription)
     if firebase_credentials_present?
       test_fcm_direct(subscription)
-    elsif chatwoot_hub_enabled?
+    elsif tuntas_hub_enabled?
       test_fcm_via_hub(subscription)
     else
       result(subscription, 'fcm', :skipped, 'No Firebase credentials and push relay disabled')
@@ -73,7 +73,7 @@ class Notification::PushTestService
   end
 
   def test_fcm_via_hub(subscription)
-    response = ChatwootHub.send_push_with_response(fcm_options(subscription))
+    response = TuntasHub.send_push_with_response(fcm_options(subscription))
     result(subscription, 'fcm_via_hub', :success, "HTTP #{response.code} — #{response.body}")
   rescue RestClient::ExceptionWithResponse => e
     result(subscription, 'fcm_via_hub', :failure, "HTTP #{e.response&.code} — #{e.response&.body}")
@@ -85,7 +85,7 @@ class Notification::PushTestService
     GlobalConfigService.load('FIREBASE_PROJECT_ID', nil) && GlobalConfigService.load('FIREBASE_CREDENTIALS', nil)
   end
 
-  def chatwoot_hub_enabled?
+  def tuntas_hub_enabled?
     ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_PUSH_RELAY_SERVER', true))
   end
 

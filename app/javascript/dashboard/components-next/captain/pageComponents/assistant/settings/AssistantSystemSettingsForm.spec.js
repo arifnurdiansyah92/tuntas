@@ -17,7 +17,7 @@ vi.mock('dashboard/composables/useAccount', () => ({
 
 const assistant = {
   config: {
-    product_name: 'Chatwoot',
+    product_name: 'Tuntas',
     handoff_message: 'I will connect you with the team.',
     resolution_message: 'I will close this conversation for now.',
     auto_resolve_mode: 'evaluated',

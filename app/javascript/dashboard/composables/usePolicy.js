@@ -13,7 +13,7 @@ import { INSTALLATION_TYPES } from 'dashboard/constants/installationTypes';
 export function usePolicy() {
   const user = useMapGetter('getCurrentUser');
   const isFeatureEnabled = useMapGetter('accounts/isFeatureEnabledonAccount');
-  const isOnChatwootCloud = useMapGetter('globalConfig/isOnChatwootCloud');
+  const isOnTuntasCloud = useMapGetter('globalConfig/isOnTuntasCloud');
   const isACustomBrandedInstance = useMapGetter(
     'globalConfig/isACustomBrandedInstance'
   );
@@ -40,7 +40,7 @@ export function usePolicy() {
     if (Array.isArray(config) && config.length > 0) {
       const installationCheck = {
         [INSTALLATION_TYPES.ENTERPRISE]: isEnterprise,
-        [INSTALLATION_TYPES.CLOUD]: isOnChatwootCloud.value,
+        [INSTALLATION_TYPES.CLOUD]: isOnTuntasCloud.value,
         [INSTALLATION_TYPES.COMMUNITY]: true,
       };
 
@@ -80,7 +80,7 @@ export function usePolicy() {
     // if on cloud, we should if the feature is allowed
     // or if the feature is a premium one like SLA to show a paywall
     // the paywall should be managed by the individual component
-    if (isOnChatwootCloud.value) {
+    if (isOnTuntasCloud.value) {
       return isFeatureFlagEnabled(flag) || isPremiumFeature(flag);
     }
 
@@ -114,7 +114,7 @@ export function usePolicy() {
     }
 
     if (isPremiumFeature(flag)) {
-      if (isOnChatwootCloud.value) {
+      if (isOnTuntasCloud.value) {
         return !isFeatureFlagEnabled(flag);
       }
 

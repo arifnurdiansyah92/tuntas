@@ -15,7 +15,7 @@ class AutomationRules::ProcessPendingExecutionJob < ApplicationJob
     execute(pending_execution)
   rescue StandardError => e
     # Row stays `processing`; the next sweep reclaims and retries it once the lock goes stale.
-    ChatwootExceptionTracker.new(e, account: pending_execution.account).capture_exception
+    TuntasExceptionTracker.new(e, account: pending_execution.account).capture_exception
   end
 
   private

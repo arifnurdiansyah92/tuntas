@@ -853,7 +853,7 @@
       "CONFIRM_BUTTON_LABEL": "Erstellen",
       "NAME": {
         "LABEL": "Name",
-        "PLACEHOLDER": "User Guide | Chatwoot",
+        "PLACEHOLDER": "User Guide | Tuntas",
         "MESSAGE": "Choose an name for your portal.",
         "ERROR": "Name wird benötigt"
       },
@@ -976,7 +976,7 @@
         "HEADER": "Integrationen",
         "DESCRIPTION": "Verbinde Tools, um die Funktionen deines Help Centers zu erweitern.",
         "LIVE_CHAT": {
-          "TITLE": "Live-Chat mit Chatwoot",
+          "TITLE": "Live-Chat mit Tuntas",
           "DESCRIPTION": "Zeige ein Live-Chat-Widget in deinem Help Center, damit Besucher dich beim Lesen erreichen können.",
           "PLACEHOLDER": "Live-Chat-Widget auswählen",
           "NONE_OPTION": "Kein Widget"

@@ -294,7 +294,7 @@ describe Whatsapp::Providers::WhatsappCloudService do
       context 'with a business management token' do
         let(:business_management_token) { 'business-token' }
 
-        before { allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true) }
+        before { allow(TuntasApp).to receive(:tuntas_cloud?).and_return(true) }
 
         it 'uses it instead of the provider API key' do
           request = stub_request(
@@ -311,7 +311,7 @@ describe Whatsapp::Providers::WhatsappCloudService do
       end
 
       context 'without a business management token' do
-        before { allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true) }
+        before { allow(TuntasApp).to receive(:tuntas_cloud?).and_return(true) }
 
         it 'uses the provider API key' do
           request = stub_request(
@@ -327,10 +327,10 @@ describe Whatsapp::Providers::WhatsappCloudService do
         end
       end
 
-      context 'with a stored business management token outside Chatwoot Cloud' do
+      context 'with a stored business management token outside Tuntas Cloud' do
         let(:business_management_token) { 'business-token' }
 
-        before { allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false) }
+        before { allow(TuntasApp).to receive(:tuntas_cloud?).and_return(false) }
 
         it 'uses the provider API key' do
           request = stub_request(

@@ -1,5 +1,5 @@
 class AccountDeletionService
-  SOFT_DELETE_EMAIL_DOMAIN = '@chatwoot-deleted.invalid'.freeze
+  SOFT_DELETE_EMAIL_DOMAIN = '@tuntas-deleted.invalid'.freeze
 
   attr_reader :account, :soft_deleted_users
 

@@ -180,7 +180,7 @@ RSpec.describe Avatar::AvatarFromUrlJob do
     end
   end
 
-  # ref: https://github.com/chatwoot/chatwoot/issues/10449
+  # ref: https://github.com/chatwoot/tuntas/issues/10449
   it 'does not raise error when downloaded file has no filename (invalid content)' do
     contact = create(:contact)
     invalid_file = Tempfile.new('avatar-without-name')

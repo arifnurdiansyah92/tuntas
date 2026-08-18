@@ -127,7 +127,7 @@ RSpec.describe 'Inboxes API', type: :request do
       end
 
       it 'returns only the configured state for an embedded signup WhatsApp business management token' do
-        allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+        allow(TuntasApp).to receive(:tuntas_cloud?).and_return(true)
         whatsapp_channel = create(
           :channel_whatsapp,
           account: account,

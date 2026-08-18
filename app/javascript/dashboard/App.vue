@@ -53,7 +53,7 @@ export default {
   },
   data() {
     return {
-      latestChatwootVersion: null,
+      latestTuntasVersion: null,
       reconnectService: null,
     };
   },
@@ -84,7 +84,7 @@ export default {
     this.listenToThemeChanges();
     // If user locale is set, use it; otherwise use account locale
     this.setLocale(
-      this.uiSettings?.locale || window.chatwootConfig.selectedLocale
+      this.uiSettings?.locale || window.tuntasConfig.selectedLocale
     );
   },
   unmounted() {
@@ -111,12 +111,12 @@ export default {
         accountId: this.currentAccountId,
       });
       const account = this.getAccount(this.currentAccountId);
-      const { locale, latest_chatwoot_version: latestChatwootVersion } =
+      const { locale, latest_tuntas_version: latestTuntasVersion } =
         account;
       const { pubsub_token: pubsubToken } = this.currentUser || {};
       // If user locale is set, use it; otherwise use account locale
       this.setLocale(this.uiSettings?.locale || locale);
-      this.latestChatwootVersion = latestChatwootVersion;
+      this.latestTuntasVersion = latestTuntasVersion;
       vueActionCable.init(this.store, pubsubToken);
       this.reconnectService = new ReconnectService(this.store, this.router);
       window.reconnectService = this.reconnectService;
@@ -140,7 +140,7 @@ export default {
     class="flex flex-col w-full h-screen min-h-0 bg-n-background"
     :dir="isRTL ? 'rtl' : 'ltr'"
   >
-    <UpdateBanner :latest-chatwoot-version="latestChatwootVersion" />
+    <UpdateBanner :latest-tuntas-version="latestTuntasVersion" />
     <StatusBanner />
     <template v-if="currentAccountId">
       <PendingEmailVerificationBanner v-if="hideOnOnboardingView" />

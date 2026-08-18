@@ -19,7 +19,7 @@ RSpec.describe Whatsapp::BusinessManagementTokenService do
   let(:validation_service) { instance_double(Whatsapp::BusinessManagementTokenValidationService, perform: true) }
 
   before do
-    allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
+    allow(TuntasApp).to receive(:tuntas_cloud?).and_return(true)
     allow(Whatsapp::BusinessManagementTokenValidationService).to receive(:new)
       .with('business-token', channel.provider_config['business_account_id'])
       .and_return(validation_service)
@@ -40,11 +40,11 @@ RSpec.describe Whatsapp::BusinessManagementTokenService do
     service.update!('business-token')
   end
 
-  it 'rejects updates outside Chatwoot Cloud' do
-    allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false)
+  it 'rejects updates outside Tuntas Cloud' do
+    allow(TuntasApp).to receive(:tuntas_cloud?).and_return(false)
 
     expect { service.update!('business-token') }
-      .to raise_error(ArgumentError, 'Business management token is only available on Chatwoot Cloud')
+      .to raise_error(ArgumentError, 'Business management token is only available on Tuntas Cloud')
     expect(validation_service).not_to have_received(:perform)
   end
 

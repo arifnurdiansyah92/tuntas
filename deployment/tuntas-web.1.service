@@ -1,0 +1,26 @@
+[Unit]
+Requires=network.target
+PartOf=tuntas.target
+
+[Service]
+Type=simple
+User=tuntas
+WorkingDirectory=/home/tuntas/tuntas
+
+ExecStart=/bin/bash -lc 'bin/rails server -p $PORT -e $RAILS_ENV'
+
+Restart=always
+RestartSec=1
+TimeoutStopSec=30
+KillMode=mixed
+StandardInput=null
+SyslogIdentifier=%p
+LimitNOFILE=65536
+
+Environment="PATH=/home/tuntas/.rvm/gems/ruby-3.4.4/bin:/home/tuntas/.rvm/gems/ruby-3.4.4@global/bin:/home/tuntas/.rvm/rubies/ruby-3.4.4/bin:/home/tuntas/.rvm/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin:/home/tuntas/.rvm/bin:/home/tuntas/.rvm/bin"
+Environment="PORT=3000"
+Environment="RAILS_ENV=production"
+Environment="NODE_ENV=production"
+Environment="RAILS_LOG_TO_STDOUT=true"
+Environment="GEM_HOME=/home/tuntas/.rvm/gems/ruby-3.4.4"
+Environment="GEM_PATH=/home/tuntas/.rvm/gems/ruby-3.4.4:/home/tuntas/.rvm/gems/ruby-3.4.4@global"

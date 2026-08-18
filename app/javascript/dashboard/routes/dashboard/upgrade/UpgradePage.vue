@@ -26,7 +26,7 @@ const { accountId, currentAccount } = useAccount();
 const { isEnterprise } = useConfig();
 const { isAdmin } = useAdmin();
 
-const isOnChatwootCloud = useMapGetter('globalConfig/isOnChatwootCloud');
+const isOnTuntasCloud = useMapGetter('globalConfig/isOnTuntasCloud');
 
 const testLimit = ({ allowed, consumed }) => {
   return consumed > allowed;
@@ -84,7 +84,7 @@ const isLimitExceeded = computed(() => {
 });
 
 const isAccountPaywalled = computed(() => {
-  if (!isOnChatwootCloud.value) return false;
+  if (!isOnTuntasCloud.value) return false;
   if (isTrialAccount.value) return false;
   return isLimitExceeded.value;
 });

@@ -397,8 +397,8 @@ RSpec.describe SafeFetch do
           'Authorization' => 'Bearer test-token',
           'Cookie' => 'session=test',
           'Content-Type' => 'application/json',
-          'X-Chatwoot-Delivery' => 'test-uuid',
-          'X-Chatwoot-Signature' => 'sha256=test-signature'
+          'X-Tuntas-Delivery' => 'test-uuid',
+          'X-Tuntas-Signature' => 'sha256=test-signature'
         }
 
         stub_request(:post, url).to_return(
@@ -422,8 +422,8 @@ RSpec.describe SafeFetch do
 
         expect(redirected_headers).to include(
           'content-type' => 'application/json',
-          'x-chatwoot-delivery' => 'test-uuid',
-          'x-chatwoot-signature' => 'sha256=test-signature'
+          'x-tuntas-delivery' => 'test-uuid',
+          'x-tuntas-signature' => 'sha256=test-signature'
         )
         expect(redirected_headers).not_to include('authorization', 'cookie')
       end

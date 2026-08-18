@@ -113,12 +113,12 @@ RSpec.describe AutomationRules::ProcessPendingExecutionJob do
     action_service = instance_double(AutomationRules::ActionService)
     allow(AutomationRules::ActionService).to receive(:new).and_return(action_service)
     allow(action_service).to receive(:perform).and_raise(StandardError, 'boom')
-    allow(ChatwootExceptionTracker).to receive(:new).and_call_original
+    allow(TuntasExceptionTracker).to receive(:new).and_call_original
 
     job.perform(pending_execution.reload)
 
     expect(pending_execution.reload).to be_executing
-    expect(ChatwootExceptionTracker).to have_received(:new)
+    expect(TuntasExceptionTracker).to have_received(:new)
   end
 
   it 'retries a row that died before the actions and still sends the follow-up exactly once' do

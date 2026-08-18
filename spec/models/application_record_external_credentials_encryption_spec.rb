@@ -39,7 +39,7 @@ RSpec.describe ApplicationRecord do
                   value: 'ig-secret'
 
   it 'encrypts WhatsApp business_management_token at rest' do
-    skip('encryption keys missing; see run_mfa_spec workflow') unless Chatwoot.encryption_configured?
+    skip('encryption keys missing; see run_mfa_spec workflow') unless Tuntas.encryption_configured?
 
     channel = create(
       :channel_whatsapp,
@@ -83,7 +83,7 @@ RSpec.describe ApplicationRecord do
 
   context 'when backfilling legacy plaintext' do
     before do
-      skip('encryption keys missing; see run_mfa_spec workflow') unless Chatwoot.encryption_configured?
+      skip('encryption keys missing; see run_mfa_spec workflow') unless Tuntas.encryption_configured?
     end
 
     it 'reads existing plaintext and encrypts on update' do
@@ -111,7 +111,7 @@ RSpec.describe ApplicationRecord do
 
   context 'when looking up telegram legacy records' do
     before do
-      skip('encryption keys missing; see run_mfa_spec workflow') unless Chatwoot.encryption_configured?
+      skip('encryption keys missing; see run_mfa_spec workflow') unless Tuntas.encryption_configured?
     end
 
     it 'finds plaintext records via fallback lookup' do

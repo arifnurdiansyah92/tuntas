@@ -6,26 +6,26 @@ import { useAdmin } from 'dashboard/composables/useAdmin';
 import { useMapGetter } from 'dashboard/composables/store';
 
 const { isAdmin } = useAdmin();
-const isOnChatwootCloud = useMapGetter('globalConfig/isOnChatwootCloud');
+const isOnTuntasCloud = useMapGetter('globalConfig/isOnTuntasCloud');
 
 const showBillingLink = computed(
-  () => isAdmin.value && isOnChatwootCloud.value
+  () => isAdmin.value && isOnTuntasCloud.value
 );
 
 const toggleSupportWidgetVisibility = () => {
-  if (window.$chatwoot) {
-    window.$chatwoot.toggleBubbleVisibility('show');
+  if (window.$tuntas) {
+    window.$tuntas.toggleBubbleVisibility('show');
   }
 };
 
 const toggleSupportWidget = () => {
-  if (window.$chatwoot) {
-    window.$chatwoot.toggle();
+  if (window.$tuntas) {
+    window.$tuntas.toggle();
   }
 };
 
 const setupListenerForWidgetEvent = () => {
-  window.addEventListener('chatwoot:on-message', () => {
+  window.addEventListener('tuntas:on-message', () => {
     toggleSupportWidgetVisibility();
   });
 };

@@ -853,7 +853,7 @@
       "CONFIRM_BUTTON_LABEL": "Cipta",
       "NAME": {
         "LABEL": "Nama",
-        "PLACEHOLDER": "Panduan Pengguna | Chatwoot",
+        "PLACEHOLDER": "Panduan Pengguna | Tuntas",
         "MESSAGE": "Pilih nama untuk portal anda.",
         "ERROR": "Nama diperlukan"
       },
@@ -976,7 +976,7 @@
         "HEADER": "Integrasi",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with Tuntas",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "Pilih widget sembang langsung",
           "NONE_OPTION": "Tiada widget"

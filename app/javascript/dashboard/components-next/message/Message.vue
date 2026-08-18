@@ -149,7 +149,7 @@ const { t } = useI18n();
 const route = useRoute();
 const inboxGetter = useMapGetter('inboxes/getInbox');
 const inbox = computed(() => inboxGetter.value(props.inboxId) || {});
-const isOnChatwootCloud = useMapGetter('globalConfig/isOnChatwootCloud');
+const isOnTuntasCloud = useMapGetter('globalConfig/isOnTuntasCloud');
 const { replaceInstallationName } = useBranding();
 
 const isCaptainMessage = computed(() => {
@@ -409,7 +409,7 @@ const contextMenuEnabledOptions = computed(() => {
       props.inboxSupportsReplyTo.outgoing &&
       !isFailedOrProcessing,
     report:
-      isOnChatwootCloud.value &&
+      isOnTuntasCloud.value &&
       isCaptainMessage.value &&
       !isMessageDeleted.value,
   };

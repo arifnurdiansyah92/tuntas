@@ -2,22 +2,22 @@ import { mount } from '@vue/test-utils';
 import { nextTick } from 'vue';
 import InboxChannelsDialog from '../../inbox-setup/InboxChannelsDialog.vue';
 
-const { isOnChatwootCloud, isMetaInboxCreationDisabled } = vi.hoisted(() => ({
-  isOnChatwootCloud: { value: false },
+const { isOnTuntasCloud, isMetaInboxCreationDisabled } = vi.hoisted(() => ({
+  isOnTuntasCloud: { value: false },
   isMetaInboxCreationDisabled: { value: false },
 }));
 
 vi.mock('vue-i18n', () => ({ useI18n: () => ({ t: key => key }) }));
 vi.mock('dashboard/composables/store', () => ({
   useMapGetter: getter =>
-    getter === 'globalConfig/isOnChatwootCloud'
-      ? isOnChatwootCloud
+    getter === 'globalConfig/isOnTuntasCloud'
+      ? isOnTuntasCloud
       : { value: {} },
 }));
 vi.mock('dashboard/composables/useAccount', () => ({
   useAccount: () => ({
     isCloudFeatureEnabled: () => true,
-    isOnChatwootCloud,
+    isOnTuntasCloud,
     isMetaInboxCreationDisabled,
   }),
 }));
@@ -47,13 +47,13 @@ const mountDialog = () =>
 
 describe('InboxChannelsDialog Facebook gating', () => {
   afterEach(() => {
-    delete window.chatwootConfig;
-    isOnChatwootCloud.value = false;
+    delete window.tuntasConfig;
+    isOnTuntasCloud.value = false;
     isMetaInboxCreationDisabled.value = false;
   });
 
   it('opens the Facebook page picker when fbAppId is configured', async () => {
-    window.chatwootConfig = { fbAppId: 'fb-app' };
+    window.tuntasConfig = { fbAppId: 'fb-app' };
     const wrapper = mountDialog();
 
     wrapper.vm.open('facebook');
@@ -63,7 +63,7 @@ describe('InboxChannelsDialog Facebook gating', () => {
   });
 
   it('shows the grid (not the picker) when fbAppId is missing', async () => {
-    window.chatwootConfig = {};
+    window.tuntasConfig = {};
     const wrapper = mountDialog();
 
     wrapper.vm.open('facebook');
@@ -74,10 +74,10 @@ describe('InboxChannelsDialog Facebook gating', () => {
     expect(wrapper.find('button').exists()).toBe(true);
   });
 
-  it('shows the grid when Meta inbox creation is disabled on Chatwoot Cloud', async () => {
-    isOnChatwootCloud.value = true;
+  it('shows the grid when Meta inbox creation is disabled on Tuntas Cloud', async () => {
+    isOnTuntasCloud.value = true;
     isMetaInboxCreationDisabled.value = true;
-    window.chatwootConfig = { fbAppId: 'fb-app' };
+    window.tuntasConfig = { fbAppId: 'fb-app' };
     const wrapper = mountDialog();
 
     wrapper.vm.open('facebook');

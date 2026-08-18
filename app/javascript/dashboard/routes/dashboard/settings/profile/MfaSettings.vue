@@ -32,7 +32,7 @@ const managementActionsRef = ref(null);
 // Load MFA status on mount
 onMounted(async () => {
   // Check if MFA is enabled globally
-  if (!parseBoolean(window.chatwootConfig?.isMfaEnabled)) {
+  if (!parseBoolean(window.tuntasConfig?.isMfaEnabled)) {
     // Redirect to profile settings if MFA is disabled
     router.push({
       name: 'profile_settings_index',

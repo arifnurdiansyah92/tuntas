@@ -8,13 +8,13 @@ class AccountDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
 
-  enterprise_attribute_types = if ChatwootApp.enterprise?
+  enterprise_attribute_types = if TuntasApp.enterprise?
                                  attributes = {
                                    limits: AccountLimitsField
                                  }
 
-                                 # Only show manually managed features in Chatwoot Cloud deployment
-                                 attributes[:manually_managed_features] = ManuallyManagedFeaturesField if ChatwootApp.chatwoot_cloud?
+                                 # Only show manually managed features in Tuntas Cloud deployment
+                                 attributes[:manually_managed_features] = ManuallyManagedFeaturesField if TuntasApp.tuntas_cloud?
 
                                  # Add all_features last so it appears after manually_managed_features
                                  attributes[:all_features] = AccountFeaturesField
@@ -55,9 +55,9 @@ class AccountDashboard < Administrate::BaseDashboard
 
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
-  enterprise_show_page_attributes = if ChatwootApp.enterprise?
+  enterprise_show_page_attributes = if TuntasApp.enterprise?
                                       attrs = %i[custom_attributes limits]
-                                      attrs << :manually_managed_features if ChatwootApp.chatwoot_cloud?
+                                      attrs << :manually_managed_features if TuntasApp.tuntas_cloud?
                                       attrs << :all_features
                                       attrs << :captain_models
                                       attrs
@@ -79,9 +79,9 @@ class AccountDashboard < Administrate::BaseDashboard
   # FORM_ATTRIBUTES
   # an array of attributes that will be displayed
   # on the model's form (`new` and `edit`) pages.
-  enterprise_form_attributes = if ChatwootApp.enterprise?
+  enterprise_form_attributes = if TuntasApp.enterprise?
                                  attrs = %i[limits]
-                                 attrs << :manually_managed_features if ChatwootApp.chatwoot_cloud?
+                                 attrs << :manually_managed_features if TuntasApp.tuntas_cloud?
                                  attrs << :all_features
                                  attrs << :captain_models
                                  attrs
@@ -125,8 +125,8 @@ class AccountDashboard < Administrate::BaseDashboard
     attrs = super + [limits: {}, captain_models: {}]
     attrs += %i[suspension_category suspension_reason] if action == 'update'
 
-    # Add manually_managed_features to permitted attributes only for Chatwoot Cloud
-    attrs << { manually_managed_features: [] } if ChatwootApp.chatwoot_cloud?
+    # Add manually_managed_features to permitted attributes only for Tuntas Cloud
+    attrs << { manually_managed_features: [] } if TuntasApp.tuntas_cloud?
 
     attrs
   end

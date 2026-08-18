@@ -62,7 +62,7 @@ RSpec.describe 'Api::V1::Accounts::AutomationRulesController', type: :request do
           'actions': [
             {
               'action_name': :send_message,
-              'action_params': ['Welcome to the chatwoot platform.']
+              'action_params': ['Welcome to the tuntas platform.']
             },
             {
               'action_name': :assign_team,
@@ -158,7 +158,7 @@ RSpec.describe 'Api::V1::Accounts::AutomationRulesController', type: :request do
         params[:actions] = [
           {
             'action_name': :send_message,
-            'action_params': ['Welcome to the chatwoot platform.']
+            'action_params': ['Welcome to the tuntas platform.']
           },
           {
             'action_name': :send_attachment,

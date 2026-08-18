@@ -43,14 +43,14 @@ const emit = defineEmits([
   'closeMobileSidebar',
 ]);
 
-const { accountScopedRoute, isOnChatwootCloud } = useAccount();
+const { accountScopedRoute, isOnTuntasCloud } = useAccount();
 const { isEnterprise } = useConfig();
 const store = useStore();
 
 // Calls run on the enterprise-only API (cloud runs enterprise); hide the entry
 // on community so it doesn't lead to a dashboard/CTA the backend can't serve.
 const isCallsAvailable = computed(
-  () => isOnChatwootCloud.value || isEnterprise
+  () => isOnTuntasCloud.value || isEnterprise
 );
 const searchShortcut = useKbd([`$mod`, 'k']);
 const { t } = useI18n();
@@ -1062,14 +1062,14 @@ const menuItems = computed(() => {
       />
       <SidebarChangelogCard
         v-if="
-          isOnChatwootCloud &&
+          isOnTuntasCloud &&
           !isACustomBrandedInstance &&
           !isEffectivelyCollapsed
         "
       />
       <SidebarChangelogButton
         v-if="
-          isOnChatwootCloud &&
+          isOnTuntasCloud &&
           !isACustomBrandedInstance &&
           isEffectivelyCollapsed
         "

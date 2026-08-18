@@ -173,9 +173,9 @@ class MailPresenter < SimpleDelegator
     @mail.bounced? || @mail['X-Failed-Recipients'].try(:value).present?
   end
 
-  def notification_email_from_chatwoot?
+  def notification_email_from_tuntas?
     # notification emails are send via mailer sender email address. so it should match
-    configured_sender = Mail::Address.new(ENV.fetch('MAILER_SENDER_EMAIL', 'Chatwoot <accounts@chatwoot.com>')).address
+    configured_sender = Mail::Address.new(ENV.fetch('MAILER_SENDER_EMAIL', 'Tuntas <accounts@chatwoot.com>')).address
     original_sender.to_s.casecmp?(configured_sender)
   end
 

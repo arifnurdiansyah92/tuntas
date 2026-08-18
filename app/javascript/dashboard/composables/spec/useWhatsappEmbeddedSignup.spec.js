@@ -51,7 +51,7 @@ describe('useWhatsappEmbeddedSignup', () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
-    window.chatwootConfig = {
+    window.tuntasConfig = {
       whatsappAppId: 'app-id',
       whatsappConfigurationId: 'config-id',
       whatsappApiVersion: 'v22.0',

@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'MFA API', type: :request do
   before do
-    skip('Skipping since MFA is not configured in this environment') unless Chatwoot.encryption_configured?
-    allow(Chatwoot).to receive(:mfa_enabled?).and_return(true)
+    skip('Skipping since MFA is not configured in this environment') unless Tuntas.encryption_configured?
+    allow(Tuntas).to receive(:mfa_enabled?).and_return(true)
   end
 
   let(:account) { create(:account) }

@@ -2,7 +2,7 @@ module BillingHelper
   private
 
   def default_plan?(account)
-    installation_config = InstallationConfig.find_by(name: 'CHATWOOT_CLOUD_PLANS')
+    installation_config = InstallationConfig.find_by(name: 'TUNTAS_CLOUD_PLANS')
     default_plan = installation_config&.value&.first
 
     # Return false if not plans are configured, so that no checks are enforced

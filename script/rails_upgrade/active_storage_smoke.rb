@@ -9,7 +9,7 @@ unless ENV['RAILS_UPGRADE_ALLOW_STORAGE_WRITE'] == 'true'
 end
 
 service_name = ENV.fetch('RAILS_UPGRADE_STORAGE_SERVICE')
-payload = "chatwoot-rails-upgrade-storage-smoke-#{SecureRandom.hex(16)}"
+payload = "tuntas-rails-upgrade-storage-smoke-#{SecureRandom.hex(16)}"
 blob = nil
 
 begin

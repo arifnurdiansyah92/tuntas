@@ -5,7 +5,7 @@ import {
 } from '../campaignHelper';
 import campaigns from './campaignFixtures';
 
-global.chatwootWebChannel = {
+global.tuntasWebChannel = {
   workingHoursEnabled: false,
 };
 describe('#Campaigns Helper', () => {

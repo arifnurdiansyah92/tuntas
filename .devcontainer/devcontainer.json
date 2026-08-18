@@ -1,5 +1,5 @@
 {
-  "name": "Chatwoot Development Codespace",
+  "name": "Tuntas Development Codespace",
   "service": "app",
   "dockerComposeFile": "docker-compose.yml",
 
@@ -34,7 +34,7 @@
   // 1025,8025 mailhog
   "forwardPorts": [8025, 3000, 3036],
 
-  "postCreateCommand": ".devcontainer/scripts/setup.sh && POSTGRES_STATEMENT_TIMEOUT=600s bundle exec rake db:chatwoot_prepare && pnpm install",
+  "postCreateCommand": ".devcontainer/scripts/setup.sh && POSTGRES_STATEMENT_TIMEOUT=600s bundle exec rake db:tuntas_prepare && pnpm install",
   "portsAttributes": {
     "3000": {
       "label": "Rails Server"

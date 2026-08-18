@@ -31,10 +31,10 @@ describe('#accountAPI', () => {
 
     it('#createAccount', () => {
       accountAPI.createAccount({
-        name: 'Chatwoot',
+        name: 'Tuntas',
       });
       expect(axiosMock.post).toHaveBeenCalledWith('/api/v1/accounts', {
-        name: 'Chatwoot',
+        name: 'Tuntas',
       });
     });
   });

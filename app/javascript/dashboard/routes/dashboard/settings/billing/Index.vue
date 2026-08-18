@@ -19,7 +19,7 @@ import { getCurrencyConfig } from 'dashboard/constants/billing';
 import { useI18n } from 'vue-i18n';
 
 const router = useRouter();
-const { currentAccount, isOnChatwootCloud } = useAccount();
+const { currentAccount, isOnTuntasCloud } = useAccount();
 const {
   captainEnabled,
   captainLimits,
@@ -102,7 +102,7 @@ const fetchAccountDetails = async () => {
 
 const handleBillingPageLogic = async () => {
   // If self-hosted, redirect to dashboard
-  if (!isOnChatwootCloud.value) {
+  if (!isOnTuntasCloud.value) {
     router.push({ name: 'home' });
     return;
   }
@@ -149,8 +149,8 @@ const onClickBillingPortal = () => {
 };
 
 const onToggleChatWindow = () => {
-  if (window.$chatwoot) {
-    window.$chatwoot.toggle();
+  if (window.$tuntas) {
+    window.$tuntas.toggle();
   }
 };
 

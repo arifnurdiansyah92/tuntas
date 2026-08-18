@@ -27,9 +27,9 @@ const { t } = useI18n();
 const isRequestingAuthorization = ref(false);
 const isLoadingFacebook = ref(true);
 
-const whatsappAppId = computed(() => window.chatwootConfig.whatsappAppId);
+const whatsappAppId = computed(() => window.tuntasConfig.whatsappAppId);
 const whatsappConfigurationId = computed(
-  () => window.chatwootConfig.whatsappConfigurationId
+  () => window.tuntasConfig.whatsappConfigurationId
 );
 
 const actionLabel = computed(() => {
@@ -184,7 +184,7 @@ onMounted(async () => {
     // Load Facebook SDK and initialize
     await setupFacebookSdk(
       whatsappAppId.value,
-      window.chatwootConfig?.whatsappApiVersion
+      window.tuntasConfig?.whatsappApiVersion
     );
   } catch (error) {
     useAlert(t('INBOX.REAUTHORIZE.FACEBOOK_LOAD_ERROR'));

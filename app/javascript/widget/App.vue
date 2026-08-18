@@ -90,7 +90,7 @@ export default {
     },
   },
   mounted() {
-    const { websiteToken, locale, widgetColor } = window.chatwootWebChannel;
+    const { websiteToken, locale, widgetColor } = window.tuntasWebChannel;
     this.setLocale(locale);
     this.setWidgetColor(widgetColor);
     this.setWidgetColorVariable(widgetColor);
@@ -156,7 +156,7 @@ export default {
     },
     setLocale(localeWithVariation) {
       if (!localeWithVariation) return;
-      const { enabledLanguages } = window.chatwootWebChannel;
+      const { enabledLanguages } = window.tuntasWebChannel;
       const localeWithoutVariation = localeWithVariation.split('_')[0];
       const hasLocaleWithoutVariation = enabledLanguages.some(
         lang => lang.iso_639_1_code === localeWithoutVariation
@@ -199,7 +199,7 @@ export default {
       });
       emitter.on('execute-campaign', campaignDetails => {
         const { customAttributes, campaignId } = campaignDetails;
-        const { websiteToken } = window.chatwootWebChannel;
+        const { websiteToken } = window.tuntasWebChannel;
         this.executeCampaign({ campaignId, websiteToken, customAttributes });
         this.router.replace({ name: 'messages' });
       });
@@ -268,7 +268,7 @@ export default {
       this.$store.dispatch('events/create', { name: eventName });
     },
     registerListeners() {
-      const { websiteToken } = window.chatwootWebChannel;
+      const { websiteToken } = window.tuntasWebChannel;
       window.addEventListener('message', e => {
         if (!IFrameHelper.isAValidEvent(e)) {
           return;

@@ -6,7 +6,7 @@ json.confirmed resource.confirmed?
 json.display_name resource.display_name
 json.message_signature resource.message_signature
 json.email resource.email
-json.hmac_identifier resource.hmac_identifier if GlobalConfig.get('CHATWOOT_INBOX_HMAC_KEY')['CHATWOOT_INBOX_HMAC_KEY'].present?
+json.hmac_identifier resource.hmac_identifier if GlobalConfig.get('TUNTAS_INBOX_HMAC_KEY')['TUNTAS_INBOX_HMAC_KEY'].present?
 json.id resource.id
 json.inviter_id resource.active_account_user&.inviter_id
 json.name resource.name
@@ -32,6 +32,6 @@ json.accounts do
     json.availability_status account_user.availability_status
     json.auto_offline account_user.auto_offline
     json.api_and_webhooks account_user.account.feature_enabled?('api_and_webhooks')
-    json.partial! 'api/v1/models/account_user', account_user: account_user if ChatwootApp.enterprise?
+    json.partial! 'api/v1/models/account_user', account_user: account_user if TuntasApp.enterprise?
   end
 end

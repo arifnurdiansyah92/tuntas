@@ -24,17 +24,17 @@ describe('useBranding', () => {
   });
 
   describe('replaceInstallationName', () => {
-    it('should replace "Chatwoot" with installation name when both text and installation name are provided', () => {
+    it('should replace "Tuntas" with installation name when both text and installation name are provided', () => {
       const { replaceInstallationName } = useBranding();
-      const result = replaceInstallationName('Welcome to Chatwoot');
+      const result = replaceInstallationName('Welcome to Tuntas');
 
       expect(result).toBe('Welcome to MyCompany');
     });
 
-    it('should replace multiple occurrences of "Chatwoot"', () => {
+    it('should replace multiple occurrences of "Tuntas"', () => {
       const { replaceInstallationName } = useBranding();
       const result = replaceInstallationName(
-        'Chatwoot is great! Use Chatwoot today.'
+        'Tuntas is great! Use Tuntas today.'
       );
 
       expect(result).toBe('MyCompany is great! Use MyCompany today.');
@@ -44,18 +44,18 @@ describe('useBranding', () => {
       mockGlobalConfig.value = {};
 
       const { replaceInstallationName } = useBranding();
-      const result = replaceInstallationName('Welcome to Chatwoot');
+      const result = replaceInstallationName('Welcome to Tuntas');
 
-      expect(result).toBe('Welcome to Chatwoot');
+      expect(result).toBe('Welcome to Tuntas');
     });
 
     it('should return original text when globalConfig is not available', () => {
       mockGlobalConfig.value = undefined;
 
       const { replaceInstallationName } = useBranding();
-      const result = replaceInstallationName('Welcome to Chatwoot');
+      const result = replaceInstallationName('Welcome to Tuntas');
 
-      expect(result).toBe('Welcome to Chatwoot');
+      expect(result).toBe('Welcome to Tuntas');
     });
 
     it('should return original text when text is empty or null', () => {
@@ -66,17 +66,17 @@ describe('useBranding', () => {
       expect(replaceInstallationName(undefined)).toBe(undefined);
     });
 
-    it('should handle text without "Chatwoot" gracefully', () => {
+    it('should handle text without "Tuntas" gracefully', () => {
       const { replaceInstallationName } = useBranding();
       const result = replaceInstallationName('Welcome to our platform');
 
       expect(result).toBe('Welcome to our platform');
     });
 
-    it('should replace "Chatwoot" regardless of casing', () => {
+    it('should replace "Tuntas" regardless of casing', () => {
       const { replaceInstallationName } = useBranding();
       const result = replaceInstallationName(
-        'Welcome to chatwoot, Chatwoot and CHATWOOT'
+        'Welcome to tuntas, Tuntas and TUNTAS'
       );
 
       expect(result).toBe('Welcome to MyCompany, MyCompany and MyCompany');
@@ -88,7 +88,7 @@ describe('useBranding', () => {
       };
 
       const { replaceInstallationName } = useBranding();
-      const result = replaceInstallationName('Welcome to Chatwoot');
+      const result = replaceInstallationName('Welcome to Tuntas');
 
       expect(result).toBe('Welcome to My-Company & Co.');
     });

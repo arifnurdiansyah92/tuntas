@@ -853,7 +853,7 @@
       "CONFIRM_BUTTON_LABEL": "შექმნა",
       "NAME": {
         "LABEL": "სახელი",
-        "PLACEHOLDER": "მომხმარებლის სახელმძღვანელო | Chatwoot",
+        "PLACEHOLDER": "მომხმარებლის სახელმძღვანელო | Tuntas",
         "MESSAGE": "აირჩიეთ პორტალის სახელი.",
         "ERROR": "სახელი აუცილებელია"
       },
@@ -976,7 +976,7 @@
         "HEADER": "ინტეგრაციები",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with Tuntas",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "აირჩიეთ ცოცხალი ჩატის ვიჯეტი",
           "NONE_OPTION": "ვიჯეტი არ არის"

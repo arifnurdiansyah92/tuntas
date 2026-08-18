@@ -31,11 +31,11 @@ RSpec.describe 'Accounts API', type: :request do
         end
       end
 
-      it 'calls ChatwootCaptcha' do
+      it 'calls TuntasCaptcha' do
         with_modified_env ENABLE_ACCOUNT_SIGNUP: 'true' do
           captcha = double
           allow(account_builder).to receive(:perform).and_return([user, account])
-          allow(ChatwootCaptcha).to receive(:new).and_return(captcha)
+          allow(TuntasCaptcha).to receive(:new).and_return(captcha)
           allow(captcha).to receive(:valid?).and_return(true)
 
           params = { account_name: 'test', email: email, user: nil, locale: nil, user_full_name: user_full_name, password: 'Password1!',
@@ -45,7 +45,7 @@ RSpec.describe 'Accounts API', type: :request do
                params: params,
                as: :json
 
-          expect(ChatwootCaptcha).to have_received(:new).with('123')
+          expect(TuntasCaptcha).to have_received(:new).with('123')
           expect(response.headers.keys).not_to include('access-token', 'token-type', 'client', 'expiry', 'uid')
           expect(response.parsed_body['email']).to eq(email)
         end
@@ -199,14 +199,14 @@ RSpec.describe 'Accounts API', type: :request do
         expect(response.body).to include(account.locale)
       end
 
-      it 'exposes the latest chatwoot version' do
-        Redis::Alfred.set(Redis::Alfred::LATEST_CHATWOOT_VERSION, '4.16.1')
+      it 'exposes the latest tuntas version' do
+        Redis::Alfred.set(Redis::Alfred::LATEST_TUNTAS_VERSION, '4.16.1')
 
         get "/api/v1/accounts/#{account.id}",
             headers: admin.create_new_auth_token,
             as: :json
 
-        expect(response.parsed_body['latest_chatwoot_version']).to eq('4.16.1')
+        expect(response.parsed_body['latest_tuntas_version']).to eq('4.16.1')
       end
     end
 

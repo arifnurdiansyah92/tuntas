@@ -20,7 +20,7 @@ const mountComposable = ({
   enabledLanguages = ENABLED_LANGUAGES,
   presets = {},
 } = {}) => {
-  window.chatwootConfig = { enabledLanguages };
+  window.tuntasConfig = { enabledLanguages };
 
   const store = createStore({
     modules: {
@@ -56,7 +56,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  delete window.chatwootConfig;
+  delete window.tuntasConfig;
 });
 
 describe('useAccountEnrichment', () => {

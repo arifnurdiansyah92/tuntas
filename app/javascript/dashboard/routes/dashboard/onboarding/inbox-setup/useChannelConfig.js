@@ -11,17 +11,17 @@ export function useChannelConfig() {
   const globalConfig = useMapGetter('globalConfig/get');
   const {
     isCloudFeatureEnabled,
-    isOnChatwootCloud,
+    isOnTuntasCloud,
     isMetaInboxCreationDisabled,
   } = useAccount();
-  const installationConfig = window.chatwootConfig || {};
+  const installationConfig = window.tuntasConfig || {};
 
   const CHANNEL_CONFIGURED = {
     // WhatsApp is onboarded only via Meta embedded signup, which needs both the
     // app id (not the 'none' sentinel) and the signup configuration id.
     whatsapp: () =>
       !isMetaInboxCreationDisabled.value &&
-      (!isOnChatwootCloud.value ||
+      (!isOnTuntasCloud.value ||
         isCloudFeatureEnabled(FEATURE_FLAGS.WHATSAPP_EMBEDDED_SIGNUP_FLOW)) &&
       Boolean(installationConfig.whatsappAppId) &&
       installationConfig.whatsappAppId !== 'none' &&

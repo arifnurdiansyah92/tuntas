@@ -1,18 +1,18 @@
 class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
   def show
     @metrics = {}
-    chatwoot_version
+    tuntas_version
     sha
     postgres_status
     redis_metrics
-    chatwoot_edition
+    tuntas_edition
     instance_meta
   end
 
-  def chatwoot_edition
-    @metrics['Chatwoot edition'] = if ChatwootApp.enterprise?
+  def tuntas_edition
+    @metrics['Tuntas edition'] = if TuntasApp.enterprise?
                                      'Enterprise'
-                                   elsif ChatwootApp.custom?
+                                   elsif TuntasApp.custom?
                                      'Custom'
                                    else
                                      'Community'
@@ -25,8 +25,8 @@ class SuperAdmin::InstanceStatusesController < SuperAdmin::ApplicationController
     @metrics['Database Migrations'] = migrations_context.needs_migration? ? 'pending' : 'completed'
   end
 
-  def chatwoot_version
-    @metrics['Chatwoot version'] = Chatwoot.config[:version]
+  def tuntas_version
+    @metrics['Tuntas version'] = Tuntas.config[:version]
   end
 
   def sha

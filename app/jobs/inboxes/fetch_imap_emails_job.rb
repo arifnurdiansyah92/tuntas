@@ -28,7 +28,7 @@ class Inboxes::FetchImapEmailsJob < MutexApplicationJob
 
   def handle_unexpected_error(error, channel)
     Rails.logger.error "[IMAP::FETCH_EMAIL_SERVICE] Unexpected error for inbox #{channel.inbox.id} : #{error.class} - #{error.message}"
-    ChatwootExceptionTracker.new(error, account: channel.account).capture_exception
+    TuntasExceptionTracker.new(error, account: channel.account).capture_exception
   end
 
   def fetch_mails_with_lock(channel, interval)
@@ -106,7 +106,7 @@ class Inboxes::FetchImapEmailsJob < MutexApplicationJob
     rescue StandardError => e
       mark_email_as_failed(inbound_mail.message_id)
       Rails.logger.error "[IMAP] Failed to process email #{inbound_mail.message_id}: #{e.message}"
-      ChatwootExceptionTracker.new(e, account: channel.account).capture_exception
+      TuntasExceptionTracker.new(e, account: channel.account).capture_exception
     end
   end
 

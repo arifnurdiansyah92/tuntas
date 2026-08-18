@@ -30,7 +30,7 @@ description: |
   By default, `content` is treated as the already-rendered transcript text for
   compatibility with existing API and mobile clients. To submit the original
   template body instead, set `template_params.content_mode` to `raw_template`;
-  Chatwoot will substitute `processed_params.body` before saving the transcript.
+  Tuntas will substitute `processed_params.body` before saving the transcript.
   
   ### Example Templates
   

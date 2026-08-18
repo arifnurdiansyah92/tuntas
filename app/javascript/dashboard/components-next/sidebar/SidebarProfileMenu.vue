@@ -39,14 +39,14 @@ const showChatSupport = computed(() => {
   return (
     isFeatureEnabledonAccount.value(
       accountId.value,
-      FEATURE_FLAGS.CONTACT_CHATWOOT_SUPPORT_TEAM
-    ) && globalConfig.value.chatwootInboxToken
+      FEATURE_FLAGS.CONTACT_TUNTAS_SUPPORT_TEAM
+    ) && globalConfig.value.tuntasInboxToken
   );
 });
 
 const toggleChatSupport = () => {
-  if (window.$chatwoot) {
-    window.$chatwoot.toggle();
+  if (window.$tuntas) {
+    window.$tuntas.toggle();
   }
 };
 

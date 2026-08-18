@@ -853,7 +853,7 @@
       "CONFIRM_BUTTON_LABEL": "सिर्जना गर्नुहोस्",
       "NAME": {
         "LABEL": "नाम",
-        "PLACEHOLDER": "प्रयोगकर्ता मार्गदर्शक | Chatwoot",
+        "PLACEHOLDER": "प्रयोगकर्ता मार्गदर्शक | Tuntas",
         "MESSAGE": "तपाईंको पोर्टलको लागि नाम छान्नुहोस्।",
         "ERROR": "नाम आवश्यक छ"
       },
@@ -976,7 +976,7 @@
         "HEADER": "एकीकरणहरू",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with Tuntas",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "प्रत्यक्ष च्याट विजेट चयन गर्नुहोस्",
           "NONE_OPTION": "कुनै विजेट छैन"

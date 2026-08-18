@@ -13,4 +13,4 @@ export const MESSAGE_TYPE = {
   TEMPLATE: 3,
 };
 
-export const WOOT_PREFIX = 'chatwoot-widget:';
+export const WOOT_PREFIX = 'tuntas-widget:';

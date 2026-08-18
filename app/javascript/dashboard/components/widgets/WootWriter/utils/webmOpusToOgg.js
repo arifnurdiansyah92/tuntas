@@ -344,7 +344,7 @@ function buildOpusHead(channels, sampleRate, preSkip) {
 }
 
 function buildOpusTags() {
-  const vendor = new TextEncoder().encode('chatwoot');
+  const vendor = new TextEncoder().encode('tuntas');
   const buf = new Uint8Array(8 + 4 + vendor.length + 4);
   const dv = new DataView(buf.buffer);
   buf.set(new TextEncoder().encode('OpusTags'));

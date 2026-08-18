@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # rubocop:disable Metrics/BlockLength
-namespace :chatwoot do
+namespace :tuntas do
   namespace :dev do
-    desc 'Toggle between Chatwoot variants with interactive menu'
+    desc 'Toggle between Tuntas variants with interactive menu'
     task toggle_variant: :environment do
       # Only allow in development environment
       return unless Rails.env.development?
@@ -13,7 +13,7 @@ namespace :chatwoot do
       handle_user_selection
     end
 
-    desc 'Show current Chatwoot variant status'
+    desc 'Show current Tuntas variant status'
     task show_variant: :environment do
       return unless Rails.env.development?
 
@@ -24,7 +24,7 @@ namespace :chatwoot do
 
     def show_current_variant
       puts "\n#{('=' * 50)}"
-      puts '🚀 CHATWOOT VARIANT MANAGER'
+      puts '🚀 TUNTAS VARIANT MANAGER'
       puts '=' * 50
 
       # Check InstallationConfig

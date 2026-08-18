@@ -145,8 +145,8 @@ RSpec.describe Twilio::MediaDownloadService do
   end
 
   it 'downloads non-Twilio media without channel credentials' do
-    public_url = 'https://chatwoot-assets.local/sample.png'
-    allow(Resolv).to receive(:getaddresses).with('chatwoot-assets.local').and_return(['93.184.216.34'])
+    public_url = 'https://tuntas-assets.local/sample.png'
+    allow(Resolv).to receive(:getaddresses).with('tuntas-assets.local').and_return(['93.184.216.34'])
     stub_request(:get, public_url)
       .with { |request| request.headers['Authorization'].blank? }
       .to_return(status: 200, body: 'image data', headers: { 'Content-Type' => 'image/png' })

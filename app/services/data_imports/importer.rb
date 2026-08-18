@@ -184,7 +184,7 @@ class DataImports::Importer
     inbox = @placeholder_inboxes.inbox_for(source_type)
     contact_inbox = contact_inbox_for(contact, inbox)
 
-    mapped_conversation = mapping&.chatwoot_record
+    mapped_conversation = mapping&.tuntas_record
     if mapped_conversation && mapping.data_import_id != @data_import.id
       skip_already_imported_item(item, mapping, already_handled: already_handled)
       reconcile_item_stats('conversation') if already_handled
@@ -194,20 +194,20 @@ class DataImports::Importer
       return
     end
 
-    chatwoot_conversation = mapped_conversation || create_conversation(conversation, contact, contact_inbox, inbox, source_type)
+    tuntas_conversation = mapped_conversation || create_conversation(conversation, contact, contact_inbox, inbox, source_type)
     if mapped_conversation
-      record_mapping('conversation', source_id, chatwoot_conversation, metadata: conversation_metadata(conversation, inbox, source_type))
+      record_mapping('conversation', source_id, tuntas_conversation, metadata: conversation_metadata(conversation, inbox, source_type))
     end
-    item.update!(status: :imported, chatwoot_record_type: 'Conversation', chatwoot_record_id: chatwoot_conversation.id)
+    item.update!(status: :imported, tuntas_record_type: 'Conversation', tuntas_record_id: tuntas_conversation.id)
     if already_handled
       reconcile_item_stats('conversation')
     else
       increment_stat('conversations', 'imported')
     end
 
-    return unless import_conversation_messages(conversation, chatwoot_conversation, contact)
+    return unless import_conversation_messages(conversation, tuntas_conversation, contact)
 
-    update_conversation_activity(chatwoot_conversation)
+    update_conversation_activity(tuntas_conversation)
   end
 
   def import_stopped?
@@ -235,7 +235,7 @@ class DataImports::Importer
     with_query_timeout_retry do
       source_id = source_id_for(contact_payload)
       mapping = find_mapping('contact', source_id) if source_id.present?
-      contact_payload = retrieve_contact_payload(contact_payload) unless mapping&.chatwoot_record
+      contact_payload = retrieve_contact_payload(contact_payload) unless mapping&.tuntas_record
       source_id = source_id_for(contact_payload)
       item, already_handled = prepare_import_item('contact', source_id, contact_payload)
 
@@ -254,14 +254,14 @@ class DataImports::Importer
 
   def import_contact_item(item, contact_payload, source_id, already_handled)
     mapping = find_mapping('contact', source_id)
-    mapped_contact = mapping&.chatwoot_record
+    mapped_contact = mapping&.tuntas_record
     return reuse_mapped_contact(item, mapping, mapped_contact, already_handled: already_handled) if mapped_contact
 
     contact = Contact.transaction do
       imported_contact = find_existing_contact(contact_payload) || create_contact(contact_payload)
       update_existing_contact(imported_contact, contact_payload)
       record_mapping('contact', source_id, imported_contact, metadata: contact_metadata(contact_payload))
-      item.update!(status: :imported, chatwoot_record_type: 'Contact', chatwoot_record_id: imported_contact.id)
+      item.update!(status: :imported, tuntas_record_type: 'Contact', tuntas_record_id: imported_contact.id)
       imported_contact
     end
     increment_stat('contacts', 'imported') unless already_handled
@@ -393,22 +393,22 @@ class DataImports::Importer
 
     Conversation.transaction do
       result = Conversation.insert_all!([attrs], returning: %w[id])
-      chatwoot_conversation = Conversation.find(result.rows.first.first)
-      record_mapping('conversation', source_id, chatwoot_conversation, metadata: metadata)
-      chatwoot_conversation
+      tuntas_conversation = Conversation.find(result.rows.first.first)
+      record_mapping('conversation', source_id, tuntas_conversation, metadata: metadata)
+      tuntas_conversation
     end
   rescue ActiveRecord::RecordNotUnique
-    @account.conversations.find_by!(identifier: conversation_identifier(conversation)).tap do |chatwoot_conversation|
-      record_mapping('conversation', source_id, chatwoot_conversation, metadata: metadata)
+    @account.conversations.find_by!(identifier: conversation_identifier(conversation)).tap do |tuntas_conversation|
+      record_mapping('conversation', source_id, tuntas_conversation, metadata: metadata)
     end
   end
 
-  def import_conversation_messages(conversation, chatwoot_conversation, contact)
+  def import_conversation_messages(conversation, tuntas_conversation, contact)
     parts_payload = conversation['conversation_parts'].to_h
     parts = Array(parts_payload['conversation_parts'])
     batch_builder = @source.message_batch_builder(
       data_import: @data_import,
-      conversation: chatwoot_conversation,
+      conversation: tuntas_conversation,
       source_conversation: conversation
     )
     batch = begin
@@ -416,14 +416,14 @@ class DataImports::Importer
     rescue ActiveRecord::QueryCanceled
       nil
     end
-    return import_conversation_messages_individually(conversation, chatwoot_conversation, contact, batch_builder, parts.size) if batch.nil?
+    return import_conversation_messages_individually(conversation, tuntas_conversation, contact, batch_builder, parts.size) if batch.nil?
 
     record_truncated_conversation_parts(conversation, parts.size)
 
     batch.entries.each_slice(MESSAGES_PER_BATCH) do |entries|
       return false unless continue_import_with_heartbeat?
 
-      import_message_batch(chatwoot_conversation, contact, batch_builder, entries)
+      import_message_batch(tuntas_conversation, contact, batch_builder, entries)
       return false if @import_stopped
     end
     return false if import_stopped?
@@ -601,7 +601,7 @@ class DataImports::Importer
     DataImportMapping.upsert_all(
       mapping_attributes,
       unique_by: MESSAGE_MAPPING_UNIQUE_INDEX,
-      update_only: %i[data_import_id chatwoot_record_type chatwoot_record_id metadata updated_at],
+      update_only: %i[data_import_id tuntas_record_type tuntas_record_id metadata updated_at],
       record_timestamps: false
     )
   end
@@ -613,8 +613,8 @@ class DataImports::Importer
       source_provider: @source.provider,
       source_object_type: 'message',
       source_object_id: entry.source_id,
-      chatwoot_record_type: record_type,
-      chatwoot_record_id: record_id,
+      tuntas_record_type: record_type,
+      tuntas_record_id: record_id,
       metadata: metadata,
       created_at: entry.mapping&.created_at || now,
       updated_at: now
@@ -633,15 +633,15 @@ class DataImports::Importer
     fail_message(conversation, entry.source_id, entry.part, e)
   end
 
-  def import_conversation_messages_individually(conversation, chatwoot_conversation, contact, batch_builder, parts_count)
+  def import_conversation_messages_individually(conversation, tuntas_conversation, contact, batch_builder, parts_count)
     source_entries, part_entries = batch_builder.unprepared_entries.partition { |entry| entry[:part]['part_type'] == 'source' }
-    source_entries.each { |entry| import_unprepared_message(chatwoot_conversation, contact, batch_builder, entry) }
+    source_entries.each { |entry| import_unprepared_message(tuntas_conversation, contact, batch_builder, entry) }
     record_truncated_conversation_parts(conversation, parts_count)
 
     part_entries.each do |entry|
       return false unless continue_import_with_heartbeat?
 
-      import_unprepared_message(chatwoot_conversation, contact, batch_builder, entry)
+      import_unprepared_message(tuntas_conversation, contact, batch_builder, entry)
     end
     return false if import_stopped?
 
@@ -723,8 +723,8 @@ class DataImports::Importer
       source_provider: @source.provider,
       source_object_type: 'message',
       source_object_id: entry.source_id,
-      chatwoot_record_type: 'Conversation',
-      chatwoot_record_id: conversation.id,
+      tuntas_record_type: 'Conversation',
+      tuntas_record_id: conversation.id,
       metadata: message_metadata(entry.part).merge(skipped: true, reason: @source.skipped_message_reason)
     )
     record_skipped_message_log(conversation, entry.source_id, entry.part)
@@ -739,8 +739,8 @@ class DataImports::Importer
       source_object_id: entry.source_id
     )).tap do |mapping|
       mapping.data_import = @data_import
-      mapping.chatwoot_record_type = 'Message'
-      mapping.chatwoot_record_id = message.id
+      mapping.tuntas_record_type = 'Message'
+      mapping.tuntas_record_id = message.id
       mapping.metadata = message_metadata(entry.part)
       mapping.save!
     end
@@ -827,7 +827,7 @@ class DataImports::Importer
 
     author = part['author'].to_h
     source_id = source_id_for(author)
-    mapped_contact = find_mapping('contact', source_id)&.chatwoot_record if source_id.present?
+    mapped_contact = find_mapping('contact', source_id)&.tuntas_record if source_id.present?
     mapped_contact || find_existing_contact(author) || primary_contact
   end
 
@@ -922,15 +922,15 @@ class DataImports::Importer
       source_object_id: source_id
     ).tap do |mapping|
       mapping.data_import = @data_import
-      mapping.chatwoot_record_type = record.class.name
-      mapping.chatwoot_record_id = record.id
+      mapping.tuntas_record_type = record.class.name
+      mapping.tuntas_record_id = record.id
       mapping.metadata = metadata
       mapping.save!
     end
   end
 
   def reconcile_current_run_contact(item, mapped_contact)
-    item.update!(status: :imported, chatwoot_record_type: 'Contact', chatwoot_record_id: mapped_contact.id)
+    item.update!(status: :imported, tuntas_record_type: 'Contact', tuntas_record_id: mapped_contact.id)
     mark_stat_group_dirty('contacts')
   end
 
@@ -958,8 +958,8 @@ class DataImports::Importer
     DataImportItem.transaction do
       item.update!(
         status: :skipped,
-        chatwoot_record_type: mapping.chatwoot_record_type,
-        chatwoot_record_id: mapping.chatwoot_record_id,
+        tuntas_record_type: mapping.tuntas_record_type,
+        tuntas_record_id: mapping.tuntas_record_id,
         last_error_code: @source.already_imported_error_code,
         last_error_message: 'Already imported in a previous import.'
       )
@@ -1044,8 +1044,8 @@ class DataImports::Importer
         reason: 'already_imported',
         source_provider: @source.provider,
         previous_data_import_id: mapping.data_import_id,
-        chatwoot_record_type: mapping.chatwoot_record_type,
-        chatwoot_record_id: mapping.chatwoot_record_id
+        tuntas_record_type: mapping.tuntas_record_type,
+        tuntas_record_id: mapping.tuntas_record_id
       }
     )
   end

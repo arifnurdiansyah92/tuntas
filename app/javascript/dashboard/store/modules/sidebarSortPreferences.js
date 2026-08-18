@@ -5,7 +5,7 @@ import {
   normalizeSidebarSortPreferences,
 } from 'dashboard/helper/sidebarSort';
 
-const STORAGE_NAME = 'chatwoot_sidebar_sort_preferences';
+const STORAGE_NAME = 'tuntas_sidebar_sort_preferences';
 export const SET_SIDEBAR_SORT_PREFERENCES = 'SET_SIDEBAR_SORT_PREFERENCES';
 
 const getPreferenceScope = rootGetters => {

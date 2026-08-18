@@ -1,4 +1,4 @@
-## Class to generate sample data for a chatwoot test @Account.
+## Class to generate sample data for a tuntas test @Account.
 ############################################################
 ### Usage #####
 #

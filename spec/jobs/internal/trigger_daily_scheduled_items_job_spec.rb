@@ -9,7 +9,7 @@ RSpec.describe Internal::TriggerDailyScheduledItemsJob do
   let(:configured_job) { instance_double(ActiveJob::ConfiguredJob, perform_later: true) }
 
   before do
-    allow(ChatwootHub).to receive(:installation_identifier).and_return(installation_id)
+    allow(TuntasHub).to receive(:installation_identifier).and_return(installation_id)
     allow(Internal::CheckNewVersionsJob).to receive(:set).and_return(configured_job)
   end
 

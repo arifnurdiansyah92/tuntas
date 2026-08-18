@@ -1,0 +1,5 @@
+[Unit]
+Wants=tuntas-web.1.service tuntas-worker.1.service
+
+[Install]
+WantedBy=multi-user.target

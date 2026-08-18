@@ -43,9 +43,9 @@ module UserAttributeHelpers
     current_account_user&.role
   end
 
-  # Used internally for Chatwoot in Chatwoot
+  # Used internally for Tuntas in Tuntas
   def hmac_identifier
-    hmac_key = GlobalConfig.get('CHATWOOT_INBOX_HMAC_KEY')['CHATWOOT_INBOX_HMAC_KEY']
+    hmac_key = GlobalConfig.get('TUNTAS_INBOX_HMAC_KEY')['TUNTAS_INBOX_HMAC_KEY']
     return OpenSSL::HMAC.hexdigest('sha256', hmac_key, email) if hmac_key.present?
 
     ''

@@ -126,7 +126,7 @@ export default {
     ...mapGetters({
       accountId: 'getCurrentAccountId',
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
-      isOnChatwootCloud: 'globalConfig/isOnChatwootCloud',
+      isOnTuntasCloud: 'globalConfig/isOnTuntasCloud',
       isMetaMessageSendingDisabled: 'globalConfig/isMetaMessageSendingDisabled',
       uiFlags: 'inboxes/getUIFlags',
       portals: 'portals/allPortals',
@@ -139,10 +139,10 @@ export default {
     },
     showContinuityToggle() {
       if (this.isInboundEmailEnabled) return true;
-      return this.isOnChatwootCloud;
+      return this.isOnTuntasCloud;
     },
     isContinuityDisabled() {
-      return this.isOnChatwootCloud && !this.isInboundEmailEnabled;
+      return this.isOnTuntasCloud && !this.isInboundEmailEnabled;
     },
     continuityDescription() {
       if (this.isContinuityDisabled) {
@@ -395,7 +395,7 @@ export default {
       return (
         this.isAWhatsAppCloudChannel &&
         this.isEmbeddedSignupWhatsApp &&
-        (!this.isOnChatwootCloud ||
+        (!this.isOnTuntasCloud ||
           this.isFeatureEnabledonAccount(
             this.accountId,
             FEATURE_FLAGS.WHATSAPP_EMBEDDED_SIGNUP_FLOW

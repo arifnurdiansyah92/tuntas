@@ -100,11 +100,11 @@ class DataImports::MessageBatchBuilder
 
   def messages_for(source_entries, mappings)
     mapped_message_ids = mappings.values.filter_map do |mapping|
-      mapping.chatwoot_record_id if mapping.chatwoot_record_type == 'Message'
+      mapping.tuntas_record_id if mapping.tuntas_record_type == 'Message'
     end
-    chatwoot_source_ids = source_entries.map { |entry| "#{@provider}:#{entry[:source_id]}" }
+    tuntas_source_ids = source_entries.map { |entry| "#{@provider}:#{entry[:source_id]}" }
     messages = Message.where(id: mapped_message_ids).or(
-      Message.where(conversation_id: @conversation.id, source_id: chatwoot_source_ids)
+      Message.where(conversation_id: @conversation.id, source_id: tuntas_source_ids)
     ).to_a
 
     {
@@ -116,7 +116,7 @@ class DataImports::MessageBatchBuilder
   def build_entry(source_entry, position, mappings, messages)
     source_id = source_entry[:source_id]
     mapping = mappings[source_id]
-    mapped_message = messages[:by_id][mapping.chatwoot_record_id] if mapping&.chatwoot_record_type == 'Message'
+    mapped_message = messages[:by_id][mapping.tuntas_record_id] if mapping&.tuntas_record_type == 'Message'
     existing_message = messages[:by_source_id]["#{@provider}:#{source_id}"]
 
     Entry.new(

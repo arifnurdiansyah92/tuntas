@@ -55,7 +55,7 @@ const bannerMessage = computed(() => {
 });
 
 const fetchMfaStatus = async () => {
-  if (!parseBoolean(window.chatwootConfig?.isMfaEnabled)) return;
+  if (!parseBoolean(window.tuntasConfig?.isMfaEnabled)) return;
 
   try {
     const { data } = await mfaAPI.get();

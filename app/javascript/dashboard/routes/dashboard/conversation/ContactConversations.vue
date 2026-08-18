@@ -87,7 +87,7 @@ const onCardClick = (conversation, e) => {
   if (e.metaKey || e.ctrlKey) {
     e.preventDefault();
     window.open(
-      `${window.chatwootConfig.hostURL}${path}`,
+      `${window.tuntasConfig.hostURL}${path}`,
       '_blank',
       'noopener,noreferrer'
     );

@@ -39,7 +39,7 @@ describe('#actions', () => {
       actions.initialize({ commit, rootGetters });
 
       expect(LocalStorage.getFromJsonStore).toHaveBeenCalledWith(
-        'chatwoot_sidebar_sort_preferences',
+        'tuntas_sidebar_sort_preferences',
         '1:2'
       );
       expect(commit).toHaveBeenCalledWith(SET_SIDEBAR_SORT_PREFERENCES, {
@@ -77,7 +77,7 @@ describe('#actions', () => {
         storageKey: '1:2',
       });
       expect(LocalStorage.updateJsonStore).toHaveBeenCalledWith(
-        'chatwoot_sidebar_sort_preferences',
+        'tuntas_sidebar_sort_preferences',
         '1:2',
         preferences
       );

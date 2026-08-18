@@ -33,7 +33,7 @@ const { checkPermissions } = usePolicy();
 const SYNC_POLL_INTERVAL_MS = 5000;
 const SYNC_POLL_MAX_DURATION_MS = 15 * 60 * 1000;
 
-const { isOnChatwootCloud } = useAccount();
+const { isOnTuntasCloud } = useAccount();
 const uiFlags = useMapGetter('captainDocuments/getUIFlags');
 const documents = useMapGetter('captainDocuments/getRecords');
 const isFetching = computed(() => uiFlags.value.fetchingList);
@@ -368,7 +368,7 @@ onUnmounted(() => {
         :button-label="$t('CAPTAIN.HEADER_KNOW_MORE')"
         :title="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.TITLE')"
         :note="$t('CAPTAIN.DOCUMENTS.EMPTY_STATE.FEATURE_SPOTLIGHT.NOTE')"
-        :hide-actions="!isOnChatwootCloud"
+        :hide-actions="!isOnTuntasCloud"
         fallback-thumbnail="/assets/images/dashboard/captain/document-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/captain/document-popover-dark.svg"
         learn-more-url="https://chwt.app/captain-document"

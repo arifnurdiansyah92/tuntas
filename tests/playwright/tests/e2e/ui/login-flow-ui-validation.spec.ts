@@ -21,7 +21,7 @@ test.describe('Login page', () => {
   });
 
   test('renders all critical components', async ({ page }) => {
-    await expect(page).toHaveTitle('Chatwoot');
+    await expect(page).toHaveTitle('Tuntas');
     await expect(loginComponent.getLoginHeading()).toBeVisible();
 
     const emailInput = loginComponent.getEmailInput();

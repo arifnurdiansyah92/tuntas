@@ -43,7 +43,7 @@ Style/SymbolArray:
 Style/OpenStructUse:
   Enabled: false
 
-Chatwoot/AttachmentDownload:
+Tuntas/AttachmentDownload:
   Enabled: true
   Exclude:
     - 'spec/**/*'

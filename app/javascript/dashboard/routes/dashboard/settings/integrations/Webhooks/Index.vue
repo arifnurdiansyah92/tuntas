@@ -44,11 +44,11 @@ export default {
       uiFlags: 'webhooks/getUIFlags',
       accountId: 'getCurrentAccountId',
       isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
-      isOnChatwootCloud: 'globalConfig/isOnChatwootCloud',
+      isOnTuntasCloud: 'globalConfig/isOnTuntasCloud',
     }),
     apiAndWebhooksEnabled() {
       return (
-        !this.isOnChatwootCloud ||
+        !this.isOnTuntasCloud ||
         this.isFeatureEnabledonAccount(
           this.accountId,
           FEATURE_FLAGS.API_AND_WEBHOOKS

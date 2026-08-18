@@ -8,7 +8,7 @@ Sidekiq.configure_client do |config|
 end
 
 # Logs whenever a job is pulled off Redis for execution.
-class ChatwootDequeuedLogger
+class TuntasDequeuedLogger
   def call(_worker, job, queue)
     payload = job['args'].first
     Sidekiq.logger.info("Dequeued #{job['wrapped']} #{payload['job_id']} from #{queue}")
@@ -22,7 +22,7 @@ Sidekiq.configure_server do |config|
   config.server_middleware do |chain|
     chain.add CaptainResponseDequeuedLogger
 
-    chain.add ChatwootDequeuedLogger if ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_SIDEKIQ_DEQUEUE_LOGGER', false))
+    chain.add TuntasDequeuedLogger if ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_SIDEKIQ_DEQUEUE_LOGGER', false))
   end
 
   # skip the default start stop logging
@@ -63,7 +63,7 @@ if Sidekiq.server? && ActiveModel::Type::Boolean.new.cast(ENV.fetch('ENABLE_SIDE
 
   Speedshop::Cloudwatch.configure do |cw|
     cw.client = Aws::CloudWatch::Client.new(region: cloudwatch_region, credentials: cloudwatch_credentials)
-    cw.namespaces[:sidekiq] = ENV.fetch('SIDEKIQ_CLOUDWATCH_NAMESPACE', 'Chatwoot/Sidekiq')
+    cw.namespaces[:sidekiq] = ENV.fetch('SIDEKIQ_CLOUDWATCH_NAMESPACE', 'Tuntas/Sidekiq')
     cw.interval = cloudwatch_interval
     cw.metrics[:sidekiq] = %i[QueueLatency QueueSize EnqueuedJobs Utilization]
     cw.enabled_environments = [cw.environment]

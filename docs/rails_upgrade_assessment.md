@@ -5,7 +5,7 @@ Repository revision assessed: `56e72eff8d67`
 
 ## Executive conclusion
 
-Chatwoot should target **Rails 8.1.3**, but it should not jump from Rails 7.1 to 8.1 in one compatibility change or one production deployment.
+Tuntas should target **Rails 8.1.3**, but it should not jump from Rails 7.1 to 8.1 in one compatibility change or one production deployment.
 
 The implementation sequence is:
 
@@ -32,7 +32,7 @@ Applying the published one-year bug-fix and two-year security windows to each se
 | Rails 8.0 | Short compatibility/rollback checkpoint | 2025-11-07, already ended | 2026-11-07 |
 | Rails 8.1 | Target | 2026-10-22 | 2027-10-22 |
 
-## Current Chatwoot baseline
+## Current Tuntas baseline
 
 | Area | Current state | Consequence |
 | --- | --- | --- |
@@ -50,8 +50,8 @@ Applying the published one-year bug-fix and two-year security windows to each se
 
 Two defaults-sensitive surfaces are particularly important:
 
-- Chatwoot declares 19 encrypted attributes across 13 OSS and Enterprise files.
-- Chatwoot has 166 `perform_later`/`deliver_later` call sites; 14 files contain both transaction and enqueue behavior.
+- Tuntas declares 19 encrypted attributes across 13 OSS and Enterprise files.
+- Tuntas has 166 `perform_later`/`deliver_later` call sites; 14 files contain both transaction and enqueue behavior.
 
 ## What the compatibility experiments showed
 
@@ -69,13 +69,13 @@ The assessment used isolated copies of this exact revision, changed only depende
   - Debug 1.8.0 fails in the current Ruby 3.4 toolchain while running the Rails update task.
 - The first live worker boot exposed an unsafe resolver result: Sidekiq 7.3.1 accepts `connection_pool >= 2.3`, so Bundler selected 3.0.2, but both Sidekiq scheduler threads then crashed because 7.3.1 calls the removed positional `TimedStack#pop` API. Sidekiq 7.3.10 explicitly constrains `connection_pool < 3`; that exact worker line and `connection_pool` 2.5.5 are required for this checkpoint.
 - Rack Mini Profiler 3.2.0 references the removed `Rack::File` constant under Rack 3.2. Updating it to 4.0.1 restores its JavaScript endpoint.
-- Rails' Active Storage install task tried to generate three migrations, but Chatwoot's initial schema migration and current `schema.rb` already contain `service_name`, variant records, and a nullable checksum. Those generated migrations must not be copied blindly.
+- Rails' Active Storage install task tried to generate three migrations, but Tuntas's initial schema migration and current `schema.rb` already contain `service_name`, variant records, and a nullable checksum. Those generated migrations must not be copied blindly.
 
 ### Rails 8.1.3
 
 The initial dependency resolution failed for three independent reasons:
 
-1. Chatwoot's `devise-secure_password` fork constrains Railties to `< 8`.
+1. Tuntas's `devise-secure_password` fork constrains Railties to `< 8`.
 2. `administrate-field-belongs_to_search` 0.10.0 constrains Rails to `< 8` and Administrate to `< 1`.
 3. `rails-i18n ~> 7.0` constrains Railties to `< 8`.
 
@@ -96,7 +96,7 @@ The resolved Rails 8.1 graph also required or selected these application-level c
 | --- | ---: | ---: | --- |
 | `administrate` | 0.20.1 | 1.0.0 | 0.20.x requires Rails `< 8`; Super Admin compatibility and assets must be tested. |
 | `administrate-field-belongs_to_search` | 0.9.0 | Custom/upstream-compatible release | 0.10.0 still requires Rails `< 8` and Administrate `< 1`. |
-| `devise-secure_password` | Chatwoot fork | Upstream 2.2.1 | This is the latest upstream release supporting Devise 4 while allowing Railties 8; 2.2.3 requires Devise 5. |
+| `devise-secure_password` | Tuntas fork | Upstream 2.2.1 | This is the latest upstream release supporting Devise 4 while allowing Railties 8; 2.2.3 requires Devise 5. |
 | `rails-i18n` | 7.0.10 | 8.1.0 | The 7.x line requires Railties `< 8`. |
 | `jbuilder` | 2.11.5 | 2.15.1 | Current version uses removed `ActiveSupport::ProxyObject`. |
 | `acts-as-taggable-on` | 12.0.0 | 13.0.0 | Version 12 does not allow Active Record 8.1. |
@@ -106,14 +106,14 @@ The resolved Rails 8.1 graph also required or selected these application-level c
 | `devise_token_auth` | 1.2.5 | 1.2.6 | Current constraint stops below Rails 8.1. |
 | `bullet` | 8.0.7 | 8.1.3 | Current version rejects Active Record 8.1 at runtime. |
 | `sidekiq` | 7.3.1 | 7.3.10 with `connection_pool` 2.5.5 | Sidekiq 7.3.1 crashes its schedulers with `connection_pool` 3. Sidekiq 7.3.10 encodes the safe `< 3` constraint. Rails 8.1 also deprecates its built-in adapter in favor of Sidekiq's adapter, so avoid a simultaneous Sidekiq 8 migration. |
-| `sprockets-rails` | Transitive | Explicit dependency, 3.5.x | Administrate 1 no longer supplies the transitive dependency, but Chatwoot Super Admin still uses Sprockets. |
+| `sprockets-rails` | Transitive | Explicit dependency, 3.5.x | Administrate 1 no longer supplies the transitive dependency, but Tuntas Super Admin still uses Sprockets. |
 | `debug` | 1.8.0 | 1.11.1 | Required for the current Ruby/Rails update tooling to run cleanly. |
 
 The current, Rails 7.2, and experimental Rails 8.1 lock graphs all passed `bundle-audit` against the advisory database updated on 2026-07-22. That does not replace a release-time audit.
 
 ## File-impact estimate
 
-These estimates are for tracked files in the Chatwoot repository. Any remaining companion dependency work is listed separately.
+These estimates are for tracked files in the Tuntas repository. Any remaining companion dependency work is listed separately.
 
 | Path | Exact known minimum | Production-ready estimate | Explanation |
 | --- | ---: | ---: | --- |
@@ -131,15 +131,15 @@ The sequential route does **not** materially reduce the final total number of ch
 - Rails 8.1 isolates Azure removal and request/job/time behavior.
 - Each checkpoint can be deployed and rolled back before a serializer or encryption default becomes irreversible.
 
-`bin/rails app:update --pretend` reported 26 config/bin/public actions for Rails 7.2 and 32 for Rails 8.1, in addition to attempted migrations. Those are candidate generator changes, not a recommended diff. Accepting them wholesale would overwrite or churn Chatwoot-specific Vite, Sprockets, environment, deployment, and initializer choices.
+`bin/rails app:update --pretend` reported 26 config/bin/public actions for Rails 7.2 and 32 for Rails 8.1, in addition to attempted migrations. Those are candidate generator changes, not a recommended diff. Accepting them wholesale would overwrite or churn Tuntas-specific Vite, Sprockets, environment, deployment, and initializer choices.
 
-## Changed interfaces and Chatwoot impact
+## Changed interfaces and Tuntas impact
 
-### Defaults Chatwoot has not yet activated
+### Defaults Tuntas has not yet activated
 
 Because `config.load_defaults` is still 7.0, upgrading the gem alone and activating defaults are different operations.
 
-| Interface/default | Change | Chatwoot exposure | Required action |
+| Interface/default | Change | Tuntas exposure | Required action |
 | --- | --- | --- | --- |
 | Active Record encryption digest | Rails 7.1 changes key derivation/digest behavior and disables SHA-1 support for affected legacy ciphertext by default. | 19 encrypted declarations, including inbox/channel credentials, integration tokens, OTP secrets, webhook secrets, and Enterprise Twilio credentials. | Pin legacy-readable behavior first, inventory/decrypt all affected records, test deterministic lookups, rewrite ciphertext if needed, then flip the default in a later deploy. |
 | Cache serialization | Rails 7.1 introduces format 7.1. | Redis cache and rolling application deploys. | Keep the old write format during the version deploy, then enable the new format after every old process is gone. Treat rollback compatibility as an acceptance criterion. |
@@ -151,7 +151,7 @@ Because `config.load_defaults` is still 7.0, upgrading the gem alone and activat
 | Enqueue after transaction commit | Rails 7.2 changes the standard job/transaction integration. | 166 enqueue/delivery calls and 14 files combining transactions and enqueueing. | Verify jobs never observe uncommitted/missing data and that rollback does not enqueue side effects. |
 | PostgreSQL date decoding and migration timestamps | Rails 7.2 changes decoding and validates migration timestamps. | Reporting, imports, schema setup, and old migration history. | Run reporting/import specs and validate both existing-database and fresh-database setup. |
 
-An AST scan found no explicit `return`, `break`, or `throw` inside Chatwoot transaction blocks, so Rails 7.2's changed non-local-return transaction behavior has no direct syntax hit in the current app. Keep a runtime audit for gem and dynamically composed behavior.
+An AST scan found no explicit `return`, `break`, or `throw` inside Tuntas transaction blocks, so Rails 7.2's changed non-local-return transaction behavior has no direct syntax hit in the current app. Keep a runtime audit for gem and dynamically composed behavior.
 
 ### Rails 7.2 interface changes
 
@@ -167,9 +167,9 @@ See the official [Rails 7.2 release notes](https://guides.rubyonrails.org/7_2_re
 
 | Interface | Repo finding | Migration |
 | --- | --- | --- |
-| Enum declaration | Rails 8 removes keyword-form enum declarations. Chatwoot has 39 declarations in 31 files: 23 OSS and 8 Enterprise files. | Change `enum status: ...` to `enum :status, ...`; preserve prefixes, suffixes, defaults, scopes, and serialized values; run model/API specs. |
+| Enum declaration | Rails 8 removes keyword-form enum declarations. Tuntas has 39 declarations in 31 files: 23 OSS and 8 Enterprise files. | Change `enum status: ...` to `enum :status, ...`; preserve prefixes, suffixes, defaults, scopes, and serialized values; run model/API specs. |
 | `ActiveSupport::ProxyObject` | Jbuilder 2.11.5 uses the removed class. | Upgrade Jbuilder before the Rails 8 bump. |
-| Active Record internal APIs | Rails removes deprecated connection-pool and schema behavior. Chatwoot subclasses a generic internal schema dumper constant. | Rework or remove the schema dumper monkey patch against the PostgreSQL dumper and verify triggers/indexes/schema output. |
+| Active Record internal APIs | Rails removes deprecated connection-pool and schema behavior. Tuntas subclasses a generic internal schema dumper constant. | Rework or remove the schema dumper monkey patch against the PostgreSQL dumper and verify triggers/indexes/schema output. |
 | Active Job transaction setting | Old `enqueue_after_transaction_commit` configuration is deprecated on the path to removal in 8.1. | Use the supported boolean/per-job behavior and verify Sidekiq jobs around commit and rollback. |
 | Azure Active Storage | The service is deprecated in 8.0. | Complete an extracted/custom adapter or customer migration before 8.1. |
 | Fresh database migration behavior | `db:migrate` on a fresh database loads the schema before pending migrations. | Test both fresh schema load and upgrade from the oldest supported production schema. |
@@ -207,7 +207,7 @@ The repository scan also checked the principal removed interfaces that do not cu
 | Custom Active Job serializer private `#klass` | No custom Active Job serializer found. |
 | SuckerPunch's internal Rails adapter | SuckerPunch is not the configured queue backend. |
 | Time-to-TimeWithZone addition and `Time#since(Time)` | No direct application call pattern found; the two `to_time` call sites remain in scope. |
-| SQLite adapter removals | Chatwoot's supported production path is PostgreSQL; fresh and upgraded PostgreSQL remain in the matrix. |
+| SQLite adapter removals | Tuntas's supported production path is PostgreSQL; fresh and upgraded PostgreSQL remain in the matrix. |
 
 ## Highest-risk break scenarios
 
@@ -276,7 +276,7 @@ Each milestone should be independently green and revertible. Framework defaults 
 
 #### R0.2 — Move `devise-secure_password` to upstream 2.2.1 (S)
 
-- **Work:** Replace the inaccessible Chatwoot fork with the exact upstream release supporting Devise 4 and Railties 8; validate password policy, Devise callbacks, authentication, and MFA.
+- **Work:** Replace the inaccessible Tuntas fork with the exact upstream release supporting Devise 4 and Railties 8; validate password policy, Devise callbacks, authentication, and MFA.
 - **Acceptance:** Upstream 2.2.1 is locked and the authentication/MFA matrix passes on every checkpoint.
 - **Depends on:** R0.1.
 

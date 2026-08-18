@@ -5,7 +5,7 @@ import FeatureSpotlight from 'dashboard/components-next/feature-spotlight/Featur
 import Button from 'dashboard/components-next/button/Button.vue';
 
 const emit = defineEmits(['click']);
-const { isOnChatwootCloud } = useAccount();
+const { isOnTuntasCloud } = useAccount();
 
 const onClick = () => {
   emit('click');
@@ -20,7 +20,7 @@ const onClick = () => {
     fallback-thumbnail-dark="/assets/images/dashboard/captain/assistant-dark.svg"
     learn-more-url="https://chwt.app/hc/captain-tools"
     class="mb-8"
-    :hide-actions="!isOnChatwootCloud"
+    :hide-actions="!isOnTuntasCloud"
   />
   <EmptyStateLayout
     :title="$t('CAPTAIN.CUSTOM_TOOLS.EMPTY_STATE.TITLE')"

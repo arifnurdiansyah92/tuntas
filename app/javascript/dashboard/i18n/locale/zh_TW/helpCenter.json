@@ -853,7 +853,7 @@
       "CONFIRM_BUTTON_LABEL": "建立",
       "NAME": {
         "LABEL": "名稱",
-        "PLACEHOLDER": "使用者指南 | Chatwoot",
+        "PLACEHOLDER": "使用者指南 | Tuntas",
         "MESSAGE": "為您的入口選擇一個名稱。",
         "ERROR": "名稱為必填"
       },
@@ -976,7 +976,7 @@
         "HEADER": "整合",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with Tuntas",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "選擇即時聊天小工具",
           "NONE_OPTION": "不使用小工具"

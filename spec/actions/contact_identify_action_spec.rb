@@ -37,7 +37,7 @@ describe ContactIdentifyAction do
     end
 
     it 'enqueues avatar job when valid avatar url parameter is passed' do
-      params = { name: 'test', avatar_url: 'https://chatwoot-assets.local/sample.png' }
+      params = { name: 'test', avatar_url: 'https://tuntas-assets.local/sample.png' }
       expect(Avatar::AvatarFromUrlJob).to receive(:perform_later).with(contact, params[:avatar_url]).once
       described_class.new(contact: contact, params: params).perform
     end
@@ -165,7 +165,7 @@ describe ContactIdentifyAction do
 
       it 'still enqueues avatar job even when attributes have not changed' do
         contact.update!(name: 'test')
-        params = { name: 'test', avatar_url: 'https://chatwoot-assets.local/sample.png' }
+        params = { name: 'test', avatar_url: 'https://tuntas-assets.local/sample.png' }
 
         expect(Avatar::AvatarFromUrlJob).to receive(:perform_later).with(contact, params[:avatar_url]).once
         described_class.new(contact: contact, params: params).perform

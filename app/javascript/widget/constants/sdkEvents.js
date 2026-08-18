@@ -1,7 +1,7 @@
-export const CHATWOOT_ERROR = 'chatwoot:error';
-export const CHATWOOT_ON_MESSAGE = 'chatwoot:on-message';
-export const CHATWOOT_ON_START_CONVERSATION = 'chatwoot:on-start-conversation';
-export const CHATWOOT_POSTBACK = 'chatwoot:postback';
-export const CHATWOOT_READY = 'chatwoot:ready';
-export const CHATWOOT_OPENED = 'chatwoot:opened';
-export const CHATWOOT_CLOSED = 'chatwoot:closed';
+export const TUNTAS_ERROR = 'tuntas:error';
+export const TUNTAS_ON_MESSAGE = 'tuntas:on-message';
+export const TUNTAS_ON_START_CONVERSATION = 'tuntas:on-start-conversation';
+export const TUNTAS_POSTBACK = 'tuntas:postback';
+export const TUNTAS_READY = 'tuntas:ready';
+export const TUNTAS_OPENED = 'tuntas:opened';
+export const TUNTAS_CLOSED = 'tuntas:closed';

@@ -92,16 +92,16 @@ export default {
   computed: {
     ...mapGetters({ globalConfig: 'globalConfig/get' }),
     allowedLoginMethods() {
-      return window.chatwootConfig.allowedLoginMethods || ['email'];
+      return window.tuntasConfig.allowedLoginMethods || ['email'];
     },
     showGoogleOAuth() {
       return (
         this.allowedLoginMethods.includes('google_oauth') &&
-        Boolean(window.chatwootConfig.googleOAuthClientId)
+        Boolean(window.tuntasConfig.googleOAuthClientId)
       );
     },
     showSignupLink() {
-      return window.chatwootConfig.signupEnabled === 'true';
+      return window.tuntasConfig.signupEnabled === 'true';
     },
     showSamlLogin() {
       return this.allowedLoginMethods.includes('saml');

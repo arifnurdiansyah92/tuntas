@@ -63,7 +63,7 @@ RSpec.describe 'Profile API', type: :request do
       end
 
       it 'returns the access token for self-hosted accounts even when the stored feature flag is disabled' do
-        allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false)
+        allow(TuntasApp).to receive(:tuntas_cloud?).and_return(false)
         account.disable_features!('api_and_webhooks')
 
         get '/api/v1/profile',

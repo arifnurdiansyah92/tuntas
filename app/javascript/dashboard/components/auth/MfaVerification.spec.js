@@ -12,7 +12,7 @@ vi.mock('dashboard/store/utils/api', () => ({
 
 vi.mock('dashboard/composables/useAccount', async () => {
   const { ref } = await import('vue');
-  return { useAccount: () => ({ isOnChatwootCloud: ref(true) }) };
+  return { useAccount: () => ({ isOnTuntasCloud: ref(true) }) };
 });
 
 describe('MfaVerification', () => {

@@ -377,16 +377,16 @@ fr:
       description: 'Les applications du tableau de bord vous permettent de créer et d''intégrer des applications qui affichent les informations de l''utilisateur, les commandes ou l''historique des paiements, fournissant plus de contexte à vos agents d''assistance client.'
     dyte:
       name: 'Cloudflare RealtimeKit'
-      short_description: 'Démarrez des appels vidéo/vocaux avec vos clients directement à partir de Chatwoot.'
-      description: 'Cloudflare RealtimeKit permet à vos agents de lancer des appels vidéo et vocaux avec vos clients directement depuis Chatwoot.'
+      short_description: 'Démarrez des appels vidéo/vocaux avec vos clients directement à partir de Tuntas.'
+      description: 'Cloudflare RealtimeKit permet à vos agents de lancer des appels vidéo et vocaux avec vos clients directement depuis Tuntas.'
       meeting_name: '%{agent_name} a démarré une réunion'
     slack:
       name: 'Slack'
       short_description: 'Recevez des notifications et répondez aux conversations directement dans Slack.'
-      description: "Intégrez Chatwoot avec Slack pour garder votre équipe en synchronisation. Cette intégration vous permet de recevoir des notifications pour les nouvelles conversations et d'y répondre directement dans l'interface de Slack."
+      description: "Intégrez Tuntas avec Slack pour garder votre équipe en synchronisation. Cette intégration vous permet de recevoir des notifications pour les nouvelles conversations et d'y répondre directement dans l'interface de Slack."
     webhooks:
       name: 'Webhooks'
-      description: 'Les événements de webhook fournissent des mises à jour en temps réel sur les activités de votre compte Chatwoot. Vous pouvez vous abonner aux événements de votre choix, et Chatwoot vous enverra des rappels HTTP contenant les mises à jour.'
+      description: 'Les événements de webhook fournissent des mises à jour en temps réel sur les activités de votre compte Tuntas. Vous pouvez vous abonner aux événements de votre choix, et Tuntas vous enverra des rappels HTTP contenant les mises à jour.'
     dialogflow:
       name: 'Dialogflow'
       short_description: 'Construire des chatbots pour gérer les requêtes initiales avant de les transférer aux agents.'

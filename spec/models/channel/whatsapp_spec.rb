@@ -23,8 +23,8 @@ RSpec.describe Channel::Whatsapp do
     end
     let(:source) { 'embedded_signup' }
 
-    context 'when running on Chatwoot Cloud' do
-      before { allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true) }
+    context 'when running on Tuntas Cloud' do
+      before { allow(TuntasApp).to receive(:tuntas_cloud?).and_return(true) }
 
       context 'with a business management token' do
         let(:business_management_token) { 'business-token' }
@@ -52,8 +52,8 @@ RSpec.describe Channel::Whatsapp do
       end
     end
 
-    context 'when running outside Chatwoot Cloud' do
-      before { allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(false) }
+    context 'when running outside Tuntas Cloud' do
+      before { allow(TuntasApp).to receive(:tuntas_cloud?).and_return(false) }
 
       let(:business_management_token) { 'business-token' }
 

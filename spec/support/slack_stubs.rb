@@ -68,11 +68,11 @@ module SlackStubs
     [
       {
         mimetype: 'image/png',
-        url_private: 'https://chatwoot-assets.local/sample.png',
+        url_private: 'https://tuntas-assets.local/sample.png',
         name: 'name_of_the_file',
         title: 'title_of_the_file',
         filetype: 'png',
-        url_private_download: 'https://chatwoot-assets.local/sample.png'
+        url_private_download: 'https://tuntas-assets.local/sample.png'
       }
     ]
   end

@@ -8,7 +8,7 @@ import Icon from 'dashboard/components-next/icon/Icon.vue';
 import { useAccount } from 'dashboard/composables/useAccount';
 
 const { t } = useI18n();
-const { isOnChatwootCloud } = useAccount();
+const { isOnTuntasCloud } = useAccount();
 
 const hasError = ref(false);
 const errorStateMessage = ref('');
@@ -79,7 +79,7 @@ const requestAuthorization = async () => {
             :label="$t('INBOX_MGMT.ADD.TIKTOK.CONTINUE_WITH_TIKTOK')"
             @click="requestAuthorization()"
           />
-          <Banner v-if="isOnChatwootCloud" color="amber" class="w-full mt-6">
+          <Banner v-if="isOnTuntasCloud" color="amber" class="w-full mt-6">
             <div class="flex items-start gap-3 text-left">
               <Icon
                 icon="i-lucide-triangle-alert"

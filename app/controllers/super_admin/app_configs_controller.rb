@@ -42,7 +42,7 @@ class SuperAdmin::AppConfigsController < SuperAdmin::ApplicationController
   end
 
   def allowed_configs
-    general_configs = GENERAL_CONFIGS + (ChatwootApp.chatwoot_cloud? ? META_INCIDENT_CONFIGS : [])
+    general_configs = GENERAL_CONFIGS + (TuntasApp.tuntas_cloud? ? META_INCIDENT_CONFIGS : [])
 
     mapping = {
       'facebook' => %w[FB_APP_ID FB_VERIFY_TOKEN FB_APP_SECRET IG_VERIFY_TOKEN FACEBOOK_API_VERSION ENABLE_MESSENGER_CHANNEL_HUMAN_AGENT],
@@ -66,7 +66,7 @@ class SuperAdmin::AppConfigsController < SuperAdmin::ApplicationController
     message = "#{@config.titleize} settings updated successfully"
     return message unless restart_required_config_saved?
 
-    "#{message.delete_suffix('.')}. Restart Chatwoot web and worker processes to apply this change everywhere."
+    "#{message.delete_suffix('.')}. Restart Tuntas web and worker processes to apply this change everywhere."
   end
 
   def success_flash

@@ -20,7 +20,7 @@ const openBilling = () => {
       class="mx-auto"
       feature-prefix="INTEGRATION_SETTINGS.WEBHOOK"
       i18n-key="PAYWALL"
-      is-on-chatwoot-cloud
+      is-on-tuntas-cloud
       @upgrade="openBilling"
     />
   </div>

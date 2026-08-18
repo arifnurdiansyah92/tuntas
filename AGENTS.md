@@ -1,4 +1,4 @@
-# Chatwoot Development Guidelines
+# Tuntas Development Guidelines
 
 ## Build / Test / Lint
 
@@ -98,24 +98,13 @@
 
 - Use compact `module/class` definitions; avoid nested styles
 
-## Enterprise Edition Notes
+## Premium Feature Rework Notes
 
-- Chatwoot has an Enterprise overlay under `enterprise/` that extends/overrides OSS code.
-- When you add or modify core functionality, always check for corresponding files in `enterprise/` and keep behavior compatible.
-- Follow the Enterprise development practices documented here:
-  - https://chatwoot.help/hc/handbook/articles/developing-enterprise-edition-features-38
-
-Practical checklist for any change impacting core logic or public APIs
-- Search for related files in both trees before editing (e.g., `rg -n "FooService|ControllerName|ModelName" app enterprise`).
-- If adding new endpoints, services, or models, consider whether Enterprise needs:
-  - An override (e.g., `enterprise/app/...`), or
-  - An extension point (e.g., `prepend_mod_with`, hooks, configuration) to avoid hard forks.
-- Avoid hardcoding instance- or plan-specific behavior in OSS; prefer configuration, feature flags, or extension points consumed by Enterprise.
-- Keep request/response contracts stable across OSS and Enterprise; update both sets of routes/controllers when introducing new APIs.
-- When renaming/moving shared code, mirror the change in `enterprise/` to prevent drift.
-- Tests: Add Enterprise-specific specs under `spec/enterprise`, mirroring OSS spec layout where applicable.
-- When modifying existing OSS features for Enterprise-only behavior, add an Enterprise module (via `prepend_mod_with`/`include_mod_with`) instead of editing OSS files directly—especially for policies, controllers, and services. For Enterprise-exclusive features, place code directly under `enterprise/`.
+- This is a hard fork of the Chatwoot MIT core. The upstream `enterprise/` directory (proprietary Chatwoot Enterprise License) has been fully removed and MUST NOT be reintroduced, copied from, or ported — its license forbids production/commercial use and claims ownership of derivatives.
+- Premium features (SLA, SAML SSO, audit logs, custom roles, AI assistant, voice) are to be REWRITTEN independently. Use the MIT-licensed behavioral specs from git history (`git show develop:spec/enterprise/...`) and the MIT frontend under `app/javascript` as the specification; never read or copy upstream enterprise Ruby code.
+- New premium implementations live under `custom/` (loaded via `TuntasApp.extensions`) or directly in `app/`, injected with `prepend_mod_with`/`include_mod_with` where an extension point already exists.
+- Outbound telemetry to the upstream hub (`lib/tuntas_hub.rb`) is opt-in via `ENABLE_HUB_TELEMETRY`; keep it that way.
 
 ## Branding / White-labeling note
 
-- For user-facing strings that currently contain "Chatwoot" but should adapt to branded/self-hosted installs, prefer applying `replaceInstallationName` from `shared/composables/useBranding` in the UI layer (for example tooltip and suggestion labels) instead of adding hardcoded brand-specific copy.
+- For user-facing strings that currently contain "Tuntas" but should adapt to branded/self-hosted installs, prefer applying `replaceInstallationName` from `shared/composables/useBranding` in the UI layer (for example tooltip and suggestion labels) instead of adding hardcoded brand-specific copy.

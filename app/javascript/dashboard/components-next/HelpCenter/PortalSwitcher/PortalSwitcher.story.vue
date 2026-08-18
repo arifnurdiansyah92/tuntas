@@ -4,14 +4,14 @@ import PortalSwitcher from './PortalSwitcher.vue';
 const portals = [
   {
     id: 1,
-    name: 'Chatwoot Help Center',
+    name: 'Tuntas Help Center',
     articles: 67,
     domain: 'chatwoot.help',
     slug: 'help-center',
   },
   {
     id: 2,
-    name: 'Chatwoot Handbook',
+    name: 'Tuntas Handbook',
     articles: 42,
     domain: 'chatwoot.help',
     slug: 'handbook',

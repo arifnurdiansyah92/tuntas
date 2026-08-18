@@ -136,7 +136,7 @@ if resource.whatsapp?
   json.message_templates message_templates.is_a?(Array) ? message_templates : []
   json.provider_config resource.channel.try(:provider_config) if Current.account_user&.administrator?
   if Current.account_user&.administrator? &&
-     ChatwootApp.chatwoot_cloud? &&
+     TuntasApp.tuntas_cloud? &&
      (resource.channel.try(:provider_config) || {}).to_h['source'] == 'embedded_signup'
     json.business_management_token_configured resource.channel.try(:business_management_token).present?
   end

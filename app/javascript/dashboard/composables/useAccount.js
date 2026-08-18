@@ -14,7 +14,7 @@ export function useAccount() {
   const route = useRoute();
   const store = useStore();
   const getAccountFn = useMapGetter('accounts/getAccount');
-  const isOnChatwootCloud = useMapGetter('globalConfig/isOnChatwootCloud');
+  const isOnTuntasCloud = useMapGetter('globalConfig/isOnTuntasCloud');
   const isMetaInboxCreationDisabled = useMapGetter(
     'globalConfig/isMetaInboxCreationDisabled'
   );
@@ -69,7 +69,7 @@ export function useAccount() {
     accountScopedUrl,
     accountScopedRoute,
     isCloudFeatureEnabled,
-    isOnChatwootCloud,
+    isOnTuntasCloud,
     isMetaInboxCreationDisabled,
     isMetaMessageSendingDisabled,
     updateAccount,
