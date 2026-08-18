@@ -29,6 +29,7 @@ class AccountUser < ApplicationRecord
 
   audited associated_with: :account
 
+  belongs_to :custom_role, optional: true
   belongs_to :account
   belongs_to :user
   belongs_to :inviter, class_name: 'User', optional: true
