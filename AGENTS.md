@@ -86,11 +86,8 @@
 ## Project-Specific
 
 - **Translations**:
-  - For product and source-string changes, only update `en.yml` and `en.json`; other languages are handled through Crowdin and the community
-  - Crowdin-generated translation sync PRs may update non-English locale files; do not flag those changes solely for modifying translated locale files
+  - Source strings live in `en.yml` (backend) and `en.json` (frontend); non-English locales are a frozen upstream snapshot maintained manually (no Crowdin pipeline on this fork) — `id` (Bahasa Indonesia) is the priority locale to keep current
   - Preserve product and brand names, OAuth scopes, API values, and other machine-readable identifiers unless an official localized form exists
-  - When reviewing Crowdin syncs, verify protected terms remain unchanged. Add newly introduced product names, brand names, and machine-readable identifiers to the Crowdin glossary as non-translatable, and keep the glossary current
-  - Backend i18n → `en.yml`, Frontend i18n → `en.json`
 - **Frontend**:
   - Use `components-next/` for message bubbles (the rest is being deprecated)
 
