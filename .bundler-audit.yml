@@ -1,6 +1,6 @@
 ---
 ignore:
-  - CVE-2021-41098 # https://github.com/chatwoot/tuntas/issues/3097 (update once azure blob storage is updated)
+  - CVE-2021-41098 # https://github.com/chatwoot/chatwoot/issues/3097 (update once azure blob storage is updated)
   - GHSA-57hq-95w6-v4fc # Devise confirmable race condition — patched locally in User model (remove once on Devise 5+)
   # Devise 5 is currently blocked by devise-secure_password/devise_token_auth/devise-two-factor.
   # Tuntas does not enable Timeoutable, so the timeout redirect path is not reachable.

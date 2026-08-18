@@ -104,7 +104,7 @@ export const actions = {
     // Handles the routing state during navigation to different screen
     // Called before the navigation starts and after navigation completes
     // Handling this state in app/javascript/widget/router.js
-    // See issue: https://github.com/chatwoot/tuntas/issues/10736
+    // See issue: https://github.com/chatwoot/chatwoot/issues/10736
     commit(SET_ROUTE_UPDATE_STATE, status);
   },
 };

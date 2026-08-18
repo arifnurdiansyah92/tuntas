@@ -316,7 +316,7 @@ describe Whatsapp::IncomingMessageService do
       end
     end
 
-    # ref: https://github.com/chatwoot/tuntas/issues/3795#issuecomment-1018057318
+    # ref: https://github.com/chatwoot/chatwoot/issues/3795#issuecomment-1018057318
     context 'when valid template button message params' do
       it 'creates appropriate conversations, message and contacts' do
         params = {
@@ -439,7 +439,7 @@ describe Whatsapp::IncomingMessageService do
       end
     end
 
-    # ref: https://github.com/chatwoot/tuntas/issues/5840
+    # ref: https://github.com/chatwoot/chatwoot/issues/5840
     describe 'When the incoming waid is a brazilian number in new format with 9 included' do
       let(:wa_id) { '5541988887777' }
 

@@ -29,7 +29,7 @@ export default {
       // Redirect to messages page after conversation is created
       this.router.replace({ name: 'messages' });
       // Only after successful navigation, reset the isUpdatingRoute UIflag in app/javascript/widget/router.js
-      // See issue: https://github.com/chatwoot/tuntas/issues/10736
+      // See issue: https://github.com/chatwoot/chatwoot/issues/10736
     },
 
     onSubmit({

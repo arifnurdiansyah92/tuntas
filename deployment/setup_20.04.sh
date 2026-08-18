@@ -377,7 +377,7 @@ function setup_tuntas() {
   rvm install "ruby-3.4.4"
   rvm use 3.4.4 --default
 
-  git clone https://github.com/chatwoot/tuntas.git
+  git clone https://github.com/chatwoot/chatwoot.git
   cd tuntas
   git checkout "$BRANCH"
   bundle
@@ -778,7 +778,7 @@ Miscellaneous:
 Exit status:
 Returns 0 if successful; non-zero otherwise.
 
-Report bugs at https://github.com/chatwoot/tuntas/issues
+Report bugs at https://github.com/chatwoot/chatwoot/issues
 Get help, https://chatwoot.com/community?utm_source=cwctl
 
 EOF

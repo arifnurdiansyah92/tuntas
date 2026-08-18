@@ -1,5 +1,5 @@
 ## This spec is to ensure alignment between frontend and backend filters
-# ref: https://github.com/chatwoot/tuntas/pull/11111
+# ref: https://github.com/chatwoot/chatwoot/pull/11111
 
 require 'rails_helper'
 

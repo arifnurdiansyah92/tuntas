@@ -6,7 +6,7 @@ if ActiveModel::Type::Boolean.new.cast(ENV.fetch('LOGRAGE_ENABLED', false)).pres
     config.lograge.formatter = Lograge::Formatters::Json.new
     config.lograge.custom_payload do |controller|
       # We only need user_id for API requests
-      # might error out for other controller - ref: https://github.com/chatwoot/tuntas/issues/6922
+      # might error out for other controller - ref: https://github.com/chatwoot/chatwoot/issues/6922
       user_id = controller&.try(:current_user)&.id if controller.is_a?(Api::BaseController) && controller&.try(:current_user).is_a?(User)
       {
         host: controller.request.host,

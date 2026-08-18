@@ -1,5 +1,5 @@
 # Handles Brazil phone number normalization
-# ref: https://github.com/chatwoot/tuntas/issues/5840
+# ref: https://github.com/chatwoot/chatwoot/issues/5840
 #
 # Brazil changed its mobile number system by adding a "9" prefix to existing numbers.
 # This normalizer adds the "9" digit if the number is 12 digits (making it 13 digits total)

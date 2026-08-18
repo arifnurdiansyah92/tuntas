@@ -8,7 +8,7 @@ RSpec.describe InboxMember do
   describe '#DestroyAssociationAsyncJob' do
     let(:inbox_member) { create(:inbox_member) }
 
-    # ref: https://github.com/chatwoot/tuntas/issues/4616
+    # ref: https://github.com/chatwoot/chatwoot/issues/4616
     context 'when parent inbox is destroyed' do
       it 'enques and processes DestroyAssociationAsyncJob' do
         perform_enqueued_jobs do

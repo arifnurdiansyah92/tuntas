@@ -145,7 +145,7 @@ class Webhooks::WhatsappEventsJob < MutexApplicationJob
 
   def find_channel_from_whatsapp_business_payload(params)
     # for the case where facebook cloud api support multiple numbers for a single app
-    # https://github.com/chatwoot/tuntas/issues/4712#issuecomment-1173838350
+    # https://github.com/chatwoot/chatwoot/issues/4712#issuecomment-1173838350
     # we will give priority to the phone_number in the payload
     return get_channel_from_wb_payload(params) if params[:object] == 'whatsapp_business_account'
 

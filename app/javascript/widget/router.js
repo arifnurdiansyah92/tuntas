@@ -60,7 +60,7 @@ const router = createRouter({
  * Handling it globally, so that we can use it across all components
  * to ensure consistent UI behavior during all route transitions.
  *
- * @see https://github.com/chatwoot/tuntas/issues/10736
+ * @see https://github.com/chatwoot/chatwoot/issues/10736
  */
 
 router.beforeEach(async (to, from, next) => {

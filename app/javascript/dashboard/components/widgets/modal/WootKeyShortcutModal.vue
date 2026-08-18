@@ -23,7 +23,7 @@ const title = computed(
 // This is used to display the shift key in the modal
 // If the current layout is QWERTZ and the keySet contains a key that needs a shift key
 // If layout is QWERTZ then we add the Shift+keysToModify to fix an known issue
-// https://github.com/chatwoot/tuntas/issues/9492
+// https://github.com/chatwoot/chatwoot/issues/9492
 const needsShiftKey = computed(
   () => keySet =>
     currentLayout.value === LAYOUT_QWERTZ &&
