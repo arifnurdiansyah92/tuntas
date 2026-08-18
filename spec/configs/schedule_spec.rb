@@ -7,7 +7,7 @@ RSpec.context 'with valid schedule.yml' do
   it 'does not have duplicates' do
     file = Rails.root.join('config/schedule.yml')
     schedule_keys = []
-    invalid_line_starts = [' ', '#', "\n"]
+    invalid_line_starts = [' ', '#', "\n", "\r"]
     # couldn't figure out a proper solution with yaml.parse
     # so the rudementary solution is to read the file and parse it
     # check for duplicates in the array
