@@ -425,7 +425,7 @@
         "SLUG": {
           "LABEL": "Oznaka",
           "PLACEHOLDER": "Oznaka kategorije za spletne naslove",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/sl-SI/categories/my-slug",
+          "HELP_TEXT": "app.tuntas.id/hc/my-portal/sl-SI/categories/my-slug",
           "ERROR": "Slug je obvezen"
         },
         "DESCRIPTION": {
@@ -456,7 +456,7 @@
         "SLUG": {
           "LABEL": "Oznaka",
           "PLACEHOLDER": "Oznaka kategorije za spletne naslove",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/sl-SI/categories/my-slug",
+          "HELP_TEXT": "app.tuntas.id/hc/my-portal/sl-SI/categories/my-slug",
           "ERROR": "Slug je obvezen"
         },
         "DESCRIPTION": {
@@ -693,7 +693,7 @@
             "LABEL": "Oznaka",
             "PLACEHOLDER": "Oznaka kategorije za spletne naslove",
             "ERROR": "Slug je obvezen",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.tuntas.id/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "Opis",

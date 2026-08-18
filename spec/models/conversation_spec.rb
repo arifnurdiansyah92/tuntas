@@ -241,7 +241,7 @@ RSpec.describe Conversation do
 
     it 'invalidates filtered counts when filterable additional_attributes are removed' do
       account.enable_features!(:unread_count_for_filters)
-      conversation.update!(additional_attributes: { 'referer' => 'https://www.chatwoot.com/' })
+      conversation.update!(additional_attributes: { 'referer' => 'https://tuntas.id/docs' })
 
       expect do
         conversation.update!(additional_attributes: {})
@@ -846,10 +846,10 @@ RSpec.describe Conversation do
   end
 
   describe 'validate valid referer url' do
-    let(:conversation) { create(:conversation, additional_attributes: { referer: 'https://www.chatwoot.com/' }) }
+    let(:conversation) { create(:conversation, additional_attributes: { referer: 'https://tuntas.id/docs' }) }
 
     it 'returns nil' do
-      expect(conversation['additional_attributes']['referer']).to eq('https://www.chatwoot.com/')
+      expect(conversation['additional_attributes']['referer']).to eq('https://tuntas.id/docs')
     end
   end
 

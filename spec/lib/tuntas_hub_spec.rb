@@ -3,8 +3,8 @@ require 'rails_helper'
 describe TuntasHub do
   describe '.base_url' do
     it 'uses the static hub url' do
-      expect(described_class::DEFAULT_BASE_URL).to eq('https://hub.2.chatwoot.com')
-      expect(described_class.base_url).to eq('https://hub.2.chatwoot.com')
+      expect(described_class::DEFAULT_BASE_URL).to eq('https://hub.2.tuntas.id')
+      expect(described_class.base_url).to eq('https://hub.2.tuntas.id')
     end
   end
 

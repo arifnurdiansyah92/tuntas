@@ -54,11 +54,8 @@ const globalConfig = computed(() => store.getters['globalConfig/get']);
 
 const termsLink = computed(() =>
   t('REGISTER.TERMS_ACCEPT')
-    .replace('https://www.chatwoot.com/terms', globalConfig.value.termsURL)
-    .replace(
-      'https://www.chatwoot.com/privacy-policy',
-      globalConfig.value.privacyURL
-    )
+    .replace('https://tuntas.id/docs', globalConfig.value.termsURL)
+    .replace('https://tuntas.id/docs', globalConfig.value.privacyURL)
 );
 
 const allowedLoginMethods = computed(

@@ -62,7 +62,7 @@ const handleAfterCreate = newAssistant => {
         :hide-actions="!isOnTuntasCloud"
         fallback-thumbnail="/assets/images/dashboard/captain/assistant-popover-light.svg"
         fallback-thumbnail-dark="/assets/images/dashboard/captain/assistant-popover-dark.svg"
-        learn-more-url="https://chwt.app/captain-assistant"
+        learn-more-url="https://tuntas.id/docs"
       />
     </template>
     <template #emptyState>

@@ -3,14 +3,14 @@ info:
   title: Tuntas - Application API
   description: Application API endpoints for Tuntas
   version: 1.1.0
-  termsOfService: https://www.chatwoot.com/terms-of-service/
+  termsOfService: https://tuntas.id/docs
   contact:
-    email: hello@chatwoot.com
+    email: hello@tuntas.id
   license:
     name: MIT License
     url: https://opensource.org/licenses/MIT
 servers:
-  - url: https://app.chatwoot.com/
+  - url: https://app.tuntas.id/
 tags:
   - name: Account AgentBots
     description: Manage agent bots within accounts

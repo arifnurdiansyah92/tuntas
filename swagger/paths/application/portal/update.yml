@@ -31,9 +31,9 @@ responses:
                 - code: "en"
                   articles_count: 32
                   categories_count: 9
-            custom_domain: "chatwoot.help"
+            custom_domain: "help.tuntas.id"
             header_text: "Handbook"
-            homepage_link: "https://www.chatwoot.com"
+            homepage_link: "https://tuntas.id/docs"
             name: "Handbook"
             slug: "handbook"
             page_title: "Handbook"
@@ -41,7 +41,7 @@ responses:
             inbox:
               id: 123
               name: "Tuntas"
-              website_url: "chatwoot.com"
+              website_url: "tuntas.id"
               channel_type: "Channel::WebWidget"
               avatar_url: "https://example.com/avatar.png"
               widget_color: "#1F93FF"

@@ -425,7 +425,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug de catégorie pour les URL",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/fr-FR/categories/my-slug",
+          "HELP_TEXT": "app.tuntas.id/hc/my-portal/fr-FR/categories/my-slug",
           "ERROR": "Le Slug est requis"
         },
         "DESCRIPTION": {
@@ -456,7 +456,7 @@
         "SLUG": {
           "LABEL": "Slug",
           "PLACEHOLDER": "Slug de catégorie pour les URL",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/fr-FR/categories/my-slug",
+          "HELP_TEXT": "app.tuntas.id/hc/my-portal/fr-FR/categories/my-slug",
           "ERROR": "Le Slug est requis"
         },
         "DESCRIPTION": {
@@ -693,7 +693,7 @@
             "LABEL": "Slug",
             "PLACEHOLDER": "Slug de catégorie pour les URL",
             "ERROR": "Le Slug est requis",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.tuntas.id/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "Description",
@@ -927,7 +927,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "Configuration DNS",
-            "DESCRIPTION": "Connectez-vous à votre compte auprès de votre fournisseur DNS, puis ajoutez un enregistrement CNAME qui fait pointer le sous-domaine vers chatwoot.help",
+            "DESCRIPTION": "Connectez-vous à votre compte auprès de votre fournisseur DNS, puis ajoutez un enregistrement CNAME qui fait pointer le sous-domaine vers help.tuntas.id",
             "COPY": "CNAME copié avec succès",
             "SEND_INSTRUCTIONS": {
               "HEADER": "Envoyer les instructions",

@@ -39,13 +39,11 @@ describe('#buildPopoutURL', () => {
   it('returns popout URL', () => {
     expect(
       buildPopoutURL({
-        origin: 'https://chatwoot.com',
+        origin: 'https://tuntas.id/docs',
         conversationCookie: 'random-jwt-token',
         websiteToken: 'random-website-token',
         locale: 'ar',
       })
-    ).toEqual(
-      'https://chatwoot.com/widget?cw_conversation=random-jwt-token&website_token=random-website-token&locale=ar'
-    );
+    ).toEqual('https://tuntas.id/docs');
   });
 });

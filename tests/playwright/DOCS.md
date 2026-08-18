@@ -33,7 +33,7 @@ All configuration managed through `.env` file. Copy `.env.example` to `.env`:
 
 ```
 BASE_URL=http://localhost:3000
-TEST_USER_EMAIL=admin@chatwoot.com
+TEST_USER_EMAIL=admin@tuntas.id
 TEST_USER_PASSWORD="Password123@#"
 ACCOUNT_ID=1
 

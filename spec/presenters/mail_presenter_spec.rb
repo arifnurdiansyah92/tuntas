@@ -252,7 +252,7 @@ RSpec.describe MailPresenter do
           body 'Hi'
         end
 
-        with_modified_env MAILER_SENDER_EMAIL: 'Tuntas <accounts@chatwoot.com>' do
+        with_modified_env MAILER_SENDER_EMAIL: 'Tuntas <accounts@tuntas.id>' do
           presenter = described_class.new(mail_with_uppercase_sender)
           expect(presenter.notification_email_from_tuntas?).to be(true)
         end

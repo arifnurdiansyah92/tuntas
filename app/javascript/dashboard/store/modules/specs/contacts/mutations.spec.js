@@ -7,19 +7,19 @@ describe('#mutations', () => {
     it('set contact records', () => {
       const state = { records: {} };
       mutations[types.SET_CONTACTS](state, [
-        { id: 2, name: 'contact2', email: 'contact2@chatwoot.com' },
-        { id: 1, name: 'contact1', email: 'contact1@chatwoot.com' },
+        { id: 2, name: 'contact2', email: 'contact2@tuntas.id' },
+        { id: 1, name: 'contact1', email: 'contact1@tuntas.id' },
       ]);
       expect(state.records).toEqual({
         1: {
           id: 1,
           name: 'contact1',
-          email: 'contact1@chatwoot.com',
+          email: 'contact1@tuntas.id',
         },
         2: {
           id: 2,
           name: 'contact2',
-          email: 'contact2@chatwoot.com',
+          email: 'contact2@tuntas.id',
         },
       });
       expect(state.sortOrder).toEqual([2, 1]);
@@ -30,18 +30,18 @@ describe('#mutations', () => {
     it('push contact data to the store', () => {
       const state = {
         records: {
-          1: { id: 1, name: 'contact1', email: 'contact1@chatwoot.com' },
+          1: { id: 1, name: 'contact1', email: 'contact1@tuntas.id' },
         },
         sortOrder: [1],
       };
       mutations[types.SET_CONTACT_ITEM](state, {
         id: 2,
         name: 'contact2',
-        email: 'contact2@chatwoot.com',
+        email: 'contact2@tuntas.id',
       });
       expect(state.records).toEqual({
-        1: { id: 1, name: 'contact1', email: 'contact1@chatwoot.com' },
-        2: { id: 2, name: 'contact2', email: 'contact2@chatwoot.com' },
+        1: { id: 1, name: 'contact1', email: 'contact1@tuntas.id' },
+        2: { id: 2, name: 'contact2', email: 'contact2@tuntas.id' },
       });
       expect(state.sortOrder).toEqual([1, 2]);
     });
@@ -51,16 +51,16 @@ describe('#mutations', () => {
     it('update contact', () => {
       const state = {
         records: {
-          1: { id: 1, name: 'contact1', email: 'contact1@chatwoot.com' },
+          1: { id: 1, name: 'contact1', email: 'contact1@tuntas.id' },
         },
       };
       mutations[types.EDIT_CONTACT](state, {
         id: 1,
         name: 'contact2',
-        email: 'contact2@chatwoot.com',
+        email: 'contact2@tuntas.id',
       });
       expect(state.records).toEqual({
-        1: { id: 1, name: 'contact2', email: 'contact2@chatwoot.com' },
+        1: { id: 1, name: 'contact2', email: 'contact2@tuntas.id' },
       });
     });
 

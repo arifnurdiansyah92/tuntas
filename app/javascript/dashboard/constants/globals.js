@@ -38,11 +38,10 @@ export default {
     CONDENSED: 'condensed',
     EXPANDED: 'expanded',
   },
-  DOCS_URL: 'https://www.chatwoot.com/docs/product/',
-  HELP_CENTER_DOCS_URL:
-    'https://www.chatwoot.com/docs/product/others/help-center',
+  DOCS_URL: 'https://tuntas.id/docs',
+  HELP_CENTER_DOCS_URL: 'https://tuntas.id/docs',
   TESTIMONIAL_URL:
-    'https://testimonials.cdn.chatwoot.com/testimonial-content.json',
+    'https://testimonials.cdn.tuntas.id/testimonial-content.json',
   WHATSAPP_EMBEDDED_SIGNUP_DOCS_URL:
     'https://developers.facebook.com/docs/whatsapp/embedded-signup/custom-flows/onboarding-business-app-users#limitations',
   SMALL_SCREEN_BREAKPOINT: 768,
@@ -78,5 +77,4 @@ export default {
   },
 };
 export const DEFAULT_REDIRECT_URL = '/app/';
-export const META_RESTRICTION_STATUS_URL =
-  'https://status.chatwoot.com/incidents';
+export const META_RESTRICTION_STATUS_URL = 'https://tuntas.id/docs';

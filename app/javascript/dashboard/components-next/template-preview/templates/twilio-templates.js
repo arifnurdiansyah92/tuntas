@@ -129,10 +129,10 @@ export const twilioTemplates = [
     template_type: 'quick_reply',
   },
   {
-    body: 'What type of Tuntas installation are you using? Select "Tuntas Cloud" if you are using app.chatwoot.com, otherwise select "Self-hosted Tuntas".',
+    body: 'What type of Tuntas installation are you using? Select "Tuntas Cloud" if you are using app.tuntas.id, otherwise select "Self-hosted Tuntas".',
     types: {
       'twilio/quick-reply': {
-        body: 'What type of Tuntas installation are you using? Select "Tuntas Cloud" if you are using app.chatwoot.com, otherwise select "Self-hosted Tuntas".',
+        body: 'What type of Tuntas installation are you using? Select "Tuntas Cloud" if you are using app.tuntas.id, otherwise select "Self-hosted Tuntas".',
         actions: [
           {
             id: 'Tuntas Cloud_payload',

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { Login } from '@components/ui';
 
-const TEST_EMAIL = process.env.TEST_USER_EMAIL || 'admin@chatwoot.com';
+const TEST_EMAIL = process.env.TEST_USER_EMAIL || 'admin@tuntas.id';
 const TEST_PASSWORD = process.env.TEST_USER_PASSWORD || 'Password123@#';
 const INVALID_PASSWORD = 'Password';
 

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { AddAgentModal, AgentPage, Login } from '@components/ui';
 
-const TEST_EMAIL = process.env.TEST_USER_EMAIL || 'admin@chatwoot.com';
+const TEST_EMAIL = process.env.TEST_USER_EMAIL || 'admin@tuntas.id';
 const TEST_PASSWORD = process.env.TEST_USER_PASSWORD || 'Password123@#';
 
 test.describe('Agent Onboarding - UI', () => {
@@ -28,7 +28,7 @@ test.describe('Agent Onboarding - UI', () => {
 
     const learnLink = agentPage.getLearnLink();
     await expect(learnLink).toBeVisible();
-    await expect(learnLink).toHaveAttribute('href', 'https://chwt.app/hc/agents');
+    await expect(learnLink).toHaveAttribute('href', 'https://tuntas.id/docs');
 
     await expect(agentPage.getAddAgentButton()).toBeVisible();
     await agentPage.openAddAgentModal();

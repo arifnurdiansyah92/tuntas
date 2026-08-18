@@ -15,7 +15,7 @@ vi.mock('dashboard/composables/useImpersonation', () => ({
 }));
 
 global.tuntasConfig = {
-  websocketURL: 'wss://test.chatwoot.com',
+  websocketURL: 'wss://test.tuntas.id',
 };
 
 const mockRetryJitter = value =>

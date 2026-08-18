@@ -8,11 +8,11 @@ describe('PortalHelper', () => {
   describe('buildPortalURL', () => {
     it('returns the correct url', () => {
       window.tuntasConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+        hostURL: 'https://app.tuntas.id',
+        helpCenterURL: 'https://help.tuntas.id',
       };
       expect(buildPortalURL('handbook')).toEqual(
-        'https://help.chatwoot.com/hc/handbook'
+        'https://help.tuntas.id/hc/handbook'
       );
       window.tuntasConfig = {};
     });
@@ -21,19 +21,19 @@ describe('PortalHelper', () => {
   describe('buildPortalArticleURL', () => {
     it('returns the correct url', () => {
       window.tuntasConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+        hostURL: 'https://app.tuntas.id',
+        helpCenterURL: 'https://help.tuntas.id',
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
-      ).toEqual('https://help.chatwoot.com/hc/handbook/articles/article-slug');
+      ).toEqual('https://help.tuntas.id/hc/handbook/articles/article-slug');
       window.tuntasConfig = {};
     });
 
     it('returns the correct url with custom domain', () => {
       window.tuntasConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+        hostURL: 'https://app.tuntas.id',
+        helpCenterURL: 'https://help.tuntas.id',
       };
       expect(
         buildPortalArticleURL(
@@ -48,8 +48,8 @@ describe('PortalHelper', () => {
 
     it('handles https in custom domain correctly', () => {
       window.tuntasConfig = {
-        hostURL: 'https://app.chatwoot.com',
-        helpCenterURL: 'https://help.chatwoot.com',
+        hostURL: 'https://app.tuntas.id',
+        helpCenterURL: 'https://help.tuntas.id',
       };
       expect(
         buildPortalArticleURL(
@@ -64,12 +64,12 @@ describe('PortalHelper', () => {
 
     it('uses hostURL when helpCenterURL is not available', () => {
       window.tuntasConfig = {
-        hostURL: 'https://app.chatwoot.com',
+        hostURL: 'https://app.tuntas.id',
         helpCenterURL: '',
       };
       expect(
         buildPortalArticleURL('handbook', 'culture', 'fr', 'article-slug')
-      ).toEqual('https://app.chatwoot.com/hc/handbook/articles/article-slug');
+      ).toEqual('https://app.tuntas.id/hc/handbook/articles/article-slug');
     });
   });
 

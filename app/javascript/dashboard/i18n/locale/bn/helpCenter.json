@@ -425,7 +425,7 @@
         "SLUG": {
           "LABEL": "স্লাগ",
           "PLACEHOLDER": "বিভাগের ইউআরএল স্লাগ",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.tuntas.id/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "স্লাগ আবশ্যক"
         },
         "DESCRIPTION": {
@@ -456,7 +456,7 @@
         "SLUG": {
           "LABEL": "স্লাগ",
           "PLACEHOLDER": "বিভাগের ইউআরএল স্লাগ",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.tuntas.id/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "স্লাগ আবশ্যক"
         },
         "DESCRIPTION": {
@@ -693,7 +693,7 @@
             "LABEL": "স্লাগ",
             "PLACEHOLDER": "বিভাগের ইউআরএল স্লাগ",
             "ERROR": "স্লাগ আবশ্যক",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.tuntas.id/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "বর্ণনা",
@@ -927,7 +927,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "DNS কনফিগারেশন",
-            "DESCRIPTION": "আপনার DNS প্রদানকারীর অ্যাকাউন্টে লগইন করুন এবং সাবডোমেইনের জন্য একটি CNAME রেকর্ড যোগ করুন যা chatwoot.help এর দিকে নির্দেশ করে",
+            "DESCRIPTION": "আপনার DNS প্রদানকারীর অ্যাকাউন্টে লগইন করুন এবং সাবডোমেইনের জন্য একটি CNAME রেকর্ড যোগ করুন যা help.tuntas.id এর দিকে নির্দেশ করে",
             "COPY": "সফলভাবে CNAME কপি হয়েছে",
             "SEND_INSTRUCTIONS": {
               "HEADER": "নির্দেশনা পাঠান",

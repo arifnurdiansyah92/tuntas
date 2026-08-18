@@ -425,7 +425,7 @@
         "SLUG": {
           "LABEL": "ስልግ",
           "PLACEHOLDER": "ለURL የምድብ ስም",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.tuntas.id/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug ያስፈልጋል"
         },
         "DESCRIPTION": {
@@ -456,7 +456,7 @@
         "SLUG": {
           "LABEL": "ስልግ",
           "PLACEHOLDER": "ለURL የምድብ ስም",
-          "HELP_TEXT": "app.chatwoot.com/hc/my-portal/en-US/categories/my-slug",
+          "HELP_TEXT": "app.tuntas.id/hc/my-portal/en-US/categories/my-slug",
           "ERROR": "Slug አስፈላጊ ነው"
         },
         "DESCRIPTION": {
@@ -693,7 +693,7 @@
             "LABEL": "ስልግ",
             "PLACEHOLDER": "ለURL የምድብ ስም",
             "ERROR": "Slug አስፈላጊ ነው",
-            "HELP_TEXT": "app.chatwoot.com/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
+            "HELP_TEXT": "app.tuntas.id/hc/{portalSlug}/{localeCode}/categories/{categorySlug}"
           },
           "DESCRIPTION": {
             "LABEL": "መግለጫ",
@@ -927,7 +927,7 @@
           },
           "DNS_CONFIGURATION_DIALOG": {
             "HEADER": "የDNS ቅንብር",
-            "DESCRIPTION": "ከDNS አቅራቢዎ ጋር ያለዎትን መለያ ይግቡ፣ እና ለsubdomain ወደ chatwoot.help የሚያመራ የCNAME መዝገብ ያክሉ",
+            "DESCRIPTION": "ከDNS አቅራቢዎ ጋር ያለዎትን መለያ ይግቡ፣ እና ለsubdomain ወደ help.tuntas.id የሚያመራ የCNAME መዝገብ ያክሉ",
             "COPY": "CNAME በተሳካ ሁኔታ ተቀይሯል",
             "SEND_INSTRUCTIONS": {
               "HEADER": "መመሪያዎችን ላክ",

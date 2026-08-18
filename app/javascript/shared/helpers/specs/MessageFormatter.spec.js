@@ -4,23 +4,22 @@ describe('#MessageFormatter', () => {
   describe('content with links', () => {
     it('should format correctly', () => {
       const message =
-        'Tuntas is an opensource tool. [Tuntas](https://www.chatwoot.com)';
+        'Tuntas is an opensource tool. [Tuntas](https://tuntas.id/docs)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Tuntas is an opensource tool. <a href="https://www.chatwoot.com" class="link" rel="noreferrer noopener nofollow" target="_blank">Tuntas</a></p>'
+        '<p>Tuntas is an opensource tool. <a href="https://tuntas.id/docs" class="link" rel="noreferrer noopener nofollow" target="_blank">Tuntas</a></p>'
       );
     });
     it('should format correctly', () => {
-      const message =
-        'Tuntas is an opensource tool. https://www.chatwoot.com';
+      const message = 'Tuntas is an opensource tool. https://tuntas.id/docs';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Tuntas is an opensource tool. <a href="https://www.chatwoot.com" class="link" rel="noreferrer noopener nofollow" target="_blank">https://www.chatwoot.com</a></p>'
+        '<p>Tuntas is an opensource tool. <a href="https://tuntas.id/docs" class="link" rel="noreferrer noopener nofollow" target="_blank">https://tuntas.id/docs</a></p>'
       );
     });
     it('should not convert template variables to links when linkify is disabled', () => {
-      const message = 'Hey {{customer.name}}, check https://chatwoot.com';
+      const message = 'Hey {{customer.name}}, check https://tuntas.id/docs';
       const formatter = new MessageFormatter(message, false, false, false);
       expect(formatter.formattedMessage).toMatch(
-        '<p>Hey {{customer.name}}, check https://chatwoot.com</p>'
+        '<p>Hey {{customer.name}}, check https://tuntas.id/docs</p>'
       );
     });
   });
@@ -45,25 +44,25 @@ describe('#MessageFormatter', () => {
   describe('content with image and has "cw_image_height" query at the end of URL', () => {
     it('should set image height correctly', () => {
       const message =
-        'Tuntas is an opensource tool. ![](http://chatwoot.com/tuntas.png?cw_image_height=24px)';
+        'Tuntas is an opensource tool. ![](http://tuntas.id/tuntas.png?cw_image_height=24px)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Tuntas is an opensource tool. <img src="http://chatwoot.com/tuntas.png?cw_image_height=24px" alt="" style="height: 24px;" /></p>'
+        '<p>Tuntas is an opensource tool. <img src="http://tuntas.id/tuntas.png?cw_image_height=24px" alt="" style="height: 24px;" /></p>'
       );
     });
 
     it('should set image height correctly if its original size', () => {
       const message =
-        'Tuntas is an opensource tool. ![](http://chatwoot.com/tuntas.png?cw_image_height=auto)';
+        'Tuntas is an opensource tool. ![](http://tuntas.id/tuntas.png?cw_image_height=auto)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Tuntas is an opensource tool. <img src="http://chatwoot.com/tuntas.png?cw_image_height=auto" alt="" style="height: auto;" /></p>'
+        '<p>Tuntas is an opensource tool. <img src="http://tuntas.id/tuntas.png?cw_image_height=auto" alt="" style="height: auto;" /></p>'
       );
     });
 
     it('should not set height', () => {
       const message =
-        'Tuntas is an opensource tool. ![](http://chatwoot.com/tuntas.png)';
+        'Tuntas is an opensource tool. ![](http://tuntas.id/tuntas.png)';
       expect(new MessageFormatter(message).formattedMessage).toMatch(
-        '<p>Tuntas is an opensource tool. <img src="http://chatwoot.com/tuntas.png" alt="" /></p>'
+        '<p>Tuntas is an opensource tool. <img src="http://tuntas.id/tuntas.png" alt="" /></p>'
       );
     });
   });
@@ -138,9 +137,9 @@ After`;
   describe('plain text content', () => {
     it('returns the plain text without HTML', () => {
       const message =
-        '<b>Tuntas is an opensource tool. https://www.chatwoot.com</b>';
+        '<b>Tuntas is an opensource tool. https://tuntas.id/docs</b>';
       expect(new MessageFormatter(message).plainText).toMatch(
-        'Tuntas is an opensource tool. https://www.chatwoot.com'
+        'Tuntas is an opensource tool. https://tuntas.id/docs'
       );
     });
   });

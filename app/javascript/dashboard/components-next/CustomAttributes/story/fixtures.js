@@ -9,7 +9,7 @@ export default [
     attributeKey: 'linkContact',
     attributeDisplayName: 'URL Input',
     attributeDisplayType: 'link',
-    value: 'https://www.chatwoot.com',
+    value: 'https://tuntas.id/docs',
   },
   {
     attributeKey: 'numberContact',

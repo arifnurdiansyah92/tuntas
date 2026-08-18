@@ -310,7 +310,7 @@ export default {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href="https://www.chatwoot.com/docs/product/channels/live-chat/sdk/identity-validation/"
+              href="https://tuntas.id/docs"
               class="text-n-blue-11 hover:underline text-label-small"
             >
               {{

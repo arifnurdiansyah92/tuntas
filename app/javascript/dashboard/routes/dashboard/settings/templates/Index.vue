@@ -32,8 +32,7 @@ const FUZZY_SEARCH_KEYS = [
   'searchableContent',
 ];
 
-const TEMPLATE_LEARN_MORE_URL =
-  'https://www.chatwoot.com/hc/user-guide/articles/1754940076-whatsapp-templates';
+const TEMPLATE_LEARN_MORE_URL = 'https://tuntas.id/docs';
 
 const store = useStore();
 const { t } = useI18n();
