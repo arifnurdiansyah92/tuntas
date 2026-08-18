@@ -52,7 +52,8 @@ class SamlUserBuilder
       name: user_name,
       display_name: @auth_hash.dig('info', 'first_name'),
       email: email,
-      password: SecureRandom.hex(16),
+      # suffix keeps the generated password compliant with the secure_password validator
+      password: "#{SecureRandom.hex(16)}aA1!",
       confirmed_at: Time.zone.now,
       provider: 'saml'
     )

@@ -2,12 +2,56 @@ class DeviseOverrides::OmniauthCallbacksController < DeviseTokenAuth::OmniauthCa
   include EmailHelper
 
   def omniauth_success
+    return handle_saml_success if auth_hash['provider'] == 'saml'
+
     get_resource_from_auth_hash
 
     @resource.present? ? sign_in_user : sign_up_user
   end
 
   private
+
+  def handle_saml_success
+    account_id = session.delete('saml.account_id') || saml_omniauth_params['account_id']
+    return redirect_to_saml_failure if account_id.blank?
+
+    @resource = provision_saml_user(account_id)
+    return redirect_to_saml_failure if @resource.blank?
+
+    saml_mobile_login? ? sign_in_user_on_mobile : sign_in_user
+  end
+
+  def provision_saml_user(account_id)
+    resource = SamlUserBuilder.new(auth_hash, account_id).perform
+    return resource if resource&.persisted?
+
+    Rails.logger.error("SAML login failed for account #{account_id}: #{resource&.errors&.full_messages}")
+    nil
+  rescue SamlUserBuilder::AuthenticationFailed, ActiveRecord::RecordNotFound => e
+    Rails.logger.error("SAML login failed for account #{account_id}: #{e.class} #{e.message}")
+    nil
+  end
+
+  def saml_omniauth_params
+    request.env['omniauth.params'].presence || session['dta.omniauth.params'].presence || {}
+  end
+
+  def saml_mobile_login?
+    return @saml_mobile_login if defined?(@saml_mobile_login)
+
+    @saml_mobile_login = session.delete('saml.relay_mobile').present? ||
+                         params[:RelayState] == 'mobile' ||
+                         saml_omniauth_params['RelayState'] == 'mobile'
+  end
+
+  def redirect_to_saml_failure
+    if saml_mobile_login?
+      mobile_deep_link_base = GlobalConfigService.load('MOBILE_DEEP_LINK_BASE', 'tuntasapp')
+      redirect_to "#{mobile_deep_link_base}://auth/saml?error=saml-authentication-failed", allow_other_host: true
+    else
+      redirect_to "#{ENV.fetch('FRONTEND_URL', nil)}/app/login/sso?error=saml-authentication-failed", allow_other_host: true
+    end
+  end
 
   def sign_in_user
     # Capture before skip_confirmation! sets confirmed_at, which would

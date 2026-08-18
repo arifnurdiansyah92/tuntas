@@ -39,6 +39,7 @@ jobs:
           - 6379:6379
     env:
       RAILS_ENV: test
+      FRONTEND_URL: http://www.example.com
       POSTGRES_HOST: localhost
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: postgres
