@@ -28,6 +28,9 @@ class Account < ApplicationRecord
   include FlagShihTzu
   include Reportable
   include Featurable
+
+  audited on: [:update]
+  has_associated_audits
   include CacheKeys
   include CaptainFeaturable
   include AccountEmailRateLimitable
