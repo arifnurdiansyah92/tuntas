@@ -35,7 +35,7 @@ describe('#Campaigns Helper', () => {
       expect(
         isPatternMatchingWithURL(
           'https://{*.}?tuntas.id/pricing*\\?*',
-          'https://tuntas.id/docs'
+          'https://tuntas.id/pricing/?test=true'
         )
       ).toBe(true);
     });
@@ -67,7 +67,7 @@ describe('#Campaigns Helper', () => {
             {
               id: 1,
               timeOnPage: 3,
-              url: 'https://tuntas.id/docs',
+              url: 'https://tuntas.id/pricing',
               triggerOnlyDuringBusinessHours: false,
             },
             {
@@ -95,7 +95,7 @@ describe('#Campaigns Helper', () => {
             {
               id: 1,
               timeOnPage: 3,
-              url: 'https://tuntas.id/docs',
+              url: 'https://tuntas.id/pricing',
               triggerOnlyDuringBusinessHours: false,
             },
             {

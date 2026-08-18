@@ -39,11 +39,13 @@ describe('#buildPopoutURL', () => {
   it('returns popout URL', () => {
     expect(
       buildPopoutURL({
-        origin: 'https://tuntas.id/docs',
+        origin: 'https://tuntas.id',
         conversationCookie: 'random-jwt-token',
         websiteToken: 'random-website-token',
         locale: 'ar',
       })
-    ).toEqual('https://tuntas.id/docs');
+    ).toEqual(
+      'https://tuntas.id/widget?cw_conversation=random-jwt-token&website_token=random-website-token&locale=ar'
+    );
   });
 });
