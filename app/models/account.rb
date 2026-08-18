@@ -102,6 +102,9 @@ class Account < ApplicationRecord
   has_many :users, through: :account_users
   has_many :web_widgets, dependent: :destroy_async, class_name: '::Channel::WebWidget'
   has_many :webhooks, dependent: :destroy_async
+  has_many :sla_policies, dependent: :destroy_async
+  has_many :applied_slas, dependent: :destroy_async
+  has_many :sla_events, dependent: :destroy_async
   has_many :whatsapp_channels, dependent: :destroy_async, class_name: '::Channel::Whatsapp'
   has_many :working_hours, dependent: :destroy_async
 

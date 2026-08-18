@@ -118,7 +118,11 @@ class Conversation < ApplicationRecord
   belongs_to :contact_inbox
   belongs_to :team, optional: true
   belongs_to :campaign, optional: true
+  belongs_to :sla_policy, optional: true
 
+  has_many :applied_slas, dependent: :destroy_async
+  has_one :applied_sla, -> { order(id: :desc) }, dependent: nil, inverse_of: :conversation
+  has_many :sla_events, dependent: :destroy_async
   has_many :mentions, dependent: :destroy_async
   has_many :messages, dependent: :destroy_async, autosave: true
   has_one :csat_survey_response, dependent: :destroy_async
@@ -137,6 +141,7 @@ class Conversation < ApplicationRecord
   after_create_commit :notify_conversation_creation
   after_create_commit :load_attributes_created_by_db_triggers
   before_destroy :set_unread_count_deletion_data
+  after_save :ensure_applied_sla
   after_destroy_commit :notify_conversation_deletion
 
   delegate :auto_resolve_after, to: :account
@@ -287,6 +292,13 @@ class Conversation < ApplicationRecord
 
   def ensure_waiting_since
     self.waiting_since = created_at
+  end
+
+  def ensure_applied_sla
+    return unless saved_change_to_sla_policy_id?
+    return if sla_policy_id.blank?
+
+    AppliedSla.find_or_create_by!(account_id: account_id, sla_policy_id: sla_policy_id, conversation_id: id)
   end
 
   def validate_additional_attributes
