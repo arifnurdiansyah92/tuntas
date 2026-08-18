@@ -40,7 +40,9 @@ describe('useReportMetrics', () => {
   it('displays metrics correctly for account', () => {
     const { displayMetric } = useReportMetrics();
 
-    expect(displayMetric('conversations_count')).toBe('5,000');
+    expect(displayMetric('conversations_count')).toBe(
+      Number(5000).toLocaleString()
+    );
     expect(displayMetric('incoming_messages_count')).toBe('5');
   });
 
