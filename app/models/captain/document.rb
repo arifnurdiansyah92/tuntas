@@ -30,6 +30,7 @@ class Captain::Document < ApplicationRecord
   has_one_attached :pdf_file
 
   enum :status, { in_progress: 0, available: 1 }
+  enum :sync_status, { synced: 0, failed: 1, syncing: 2 }, prefix: :sync
 
   validates :external_link, presence: true
   validate :validate_pdf_file_size

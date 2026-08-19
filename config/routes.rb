@@ -579,9 +579,11 @@ Rails.application.routes.draw do
       end
 
       post 'webhooks/stripe', to: 'webhooks/stripe#process_payload'
-      post 'webhooks/firecrawl', to: 'webhooks/firecrawl#process_payload'
     end
   end
+
+  # Captain document crawling callback (kept under the legacy path for webhook compatibility)
+  post 'enterprise/webhooks/firecrawl', to: 'webhooks/firecrawl#process_payload', as: :enterprise_webhooks_firecrawl
 
   # ----------------------------------------------------------------------
   # Routes for platform APIs

@@ -3,10 +3,14 @@ class Captain::Llm::PaginatedFaqGeneratorService
 
   attr_reader :iterations_completed
 
-  def initialize(document, pages_per_chunk: 5)
+  def initialize(document, options = {})
     @document = document
-    @pages_per_chunk = pages_per_chunk
+    @pages_per_chunk = options[:pages_per_chunk] || 5
     @iterations_completed = 0
+  end
+
+  def total_pages_processed
+    @iterations_completed * @pages_per_chunk
   end
 
   def model
