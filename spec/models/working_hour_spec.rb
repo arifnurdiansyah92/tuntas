@@ -93,13 +93,14 @@ RSpec.describe WorkingHour do
     let(:inbox) { create(:inbox) }
 
     before do
-      Time.zone = 'Australia/Sydney'
       inbox.update(timezone: 'Australia/Sydney')
       travel_to '10.10.2022 9:00 AEDT'
     end
 
     it 'is considered working hour' do
-      expect(described_class.today.open_now?).to be true
+      Time.use_zone('Australia/Sydney') do
+        expect(described_class.today.open_now?).to be true
+      end
     end
   end
 end

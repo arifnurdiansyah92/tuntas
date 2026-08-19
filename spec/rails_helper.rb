@@ -78,6 +78,13 @@ RSpec.configure do |config|
   config.include ConversationsUnreadCountsHelpers
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include ActiveSupport::Testing::TimeHelpers
+  # A spec that freezes or travels time without the block form must never leak
+  # into later examples; unconditional travel_back is a no-op when time is real.
+  config.after { travel_back }
+  # A spec that assigns Time.zone directly must never leak its zone into later
+  # examples (a leaked non-UTC zone shifts every date-boundary assertion for the
+  # rest of the process during the hours where the zone's date differs from UTC).
+  config.around { |example| Time.use_zone(Rails.application.config.time_zone) { example.run } }
   config.include ActionCable::TestHelper
   config.include ActiveJob::TestHelper
 

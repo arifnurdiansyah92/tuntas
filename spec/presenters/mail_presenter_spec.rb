@@ -246,7 +246,7 @@ RSpec.describe MailPresenter do
 
       it 'matches notification sender emails case-insensitively' do
         mail_with_uppercase_sender = Mail.new do
-          from 'Tuntas <ACCOUNTS@TUNTAS.COM>'
+          from 'Tuntas <ACCOUNTS@TUNTAS.ID>'
           to 'Inbox <inbox@example.com>'
           subject :header
           body 'Hi'
