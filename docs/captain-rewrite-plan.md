@@ -40,3 +40,21 @@ Jangan pernah membuka kode Ruby `enterprise/` upstream.
 - Jalankan tiap fase di Docker (pgvector image sudah dipakai rig verifikasi).
 - Embedding spec kemungkinan menstub OpenAI (webmock) — tidak butuh API key nyata.
 - Feature flags terkait: `captain_integration`, `captain_integration_v2` (features.yml).
+
+## Status: SELESAI (2026-08-19)
+
+Seluruh fase C1–C5 sudah ditulis ulang clean-room dan hijau di rig Docker:
+
+- **C1** — tools framework + model core (483 examples)
+- **C2** — LLM service layer (399 examples)
+- **C3a** — document crawl/sync/FAQ pipeline (75 examples)
+- **C3b** — assistant runtime: AgentRunnerService, ResponseBuilderJob (V1+V2), outcome tracking,
+  auto-resolution job, audience matcher, session capture (247 examples)
+- **C4** — copilot chat service + 7 agent tools + permission-aware conversation filtering (118 examples)
+- **C5** — stats builders (overview/flow/trend/legacy), listeners, assistant policy,
+  assistant-migration classifier & applier, onboarding website analyzer, firecrawl webhook,
+  dan 12 API controllers (±300 examples)
+
+Total ±1.600 contoh spec MIT dipulihkan dan lulus. Semua 81 file spec captain dari history
+MIT sudah direstorasi. Frontend MIT (`app/javascript/dashboard/routes/dashboard/captain`)
+sekarang punya backend lengkap.
