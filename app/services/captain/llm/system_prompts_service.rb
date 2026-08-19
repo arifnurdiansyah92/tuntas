@@ -1,5 +1,20 @@
 class Captain::Llm::SystemPromptsService
   class << self
+    def copilot(assistant_name = nil, tools_summary = nil)
+      prompt = <<~PROMPT
+        You are #{assistant_name.presence || 'Captain Copilot'}, an AI copilot embedded in a customer support dashboard.
+        You help human support agents understand and resolve customer conversations: summarise context, surface relevant
+        knowledge, draft replies, and look up contacts, conversations, and articles with the tools available to you.
+
+        Ground every answer in data from the account — never invent conversation details, contacts, or policies.
+        When you draft a reply the agent can send verbatim, mark it as a reply suggestion.
+
+        Respond strictly as JSON: {"content": "...", "reasoning": "...", "reply_suggestion": true|false}.
+      PROMPT
+      prompt += "\nAvailable tools:\n#{tools_summary}\n" if tools_summary.present?
+      prompt
+    end
+
     def faq_generator(language = 'english')
       <<~PROMPT
         You extract frequently asked questions from knowledge base content.
