@@ -39,11 +39,19 @@ class Captain::Document < ApplicationRecord
   before_validation :ensure_pdf_external_link
   after_save :enqueue_response_builder
 
+  SYNC_STALE_TIMEOUT = 2.hours
+
   def pdf_document?
     return true if pdf_file.attached?
     return false if external_link.blank?
 
     external_link.start_with?(PDF_LINK_PREFIX) || external_link.end_with?('.pdf') || pdf_url?
+  end
+
+  # PDF documents are re-imported, not crawled, and documents still being
+  # processed have no canonical content to refresh yet.
+  def syncable?
+    available? && !pdf_document?
   end
 
   def display_url

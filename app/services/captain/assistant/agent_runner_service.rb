@@ -6,11 +6,12 @@ class Captain::Assistant::AgentRunnerService
 
   attr_reader :last_run_result, :responding_to_message_id
 
-  def initialize(assistant:, conversation: nil, callbacks: {}, responding_to_message_id: nil)
+  def initialize(assistant:, conversation: nil, callbacks: {}, responding_to_message_id: nil, source: nil)
     @assistant = assistant
     @conversation = conversation
     @callbacks = callbacks
     @responding_to_message_id = responding_to_message_id
+    @source = source
   end
 
   def generate_response(message_history:)

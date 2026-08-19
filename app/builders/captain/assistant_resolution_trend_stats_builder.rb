@@ -45,7 +45,8 @@ class Captain::AssistantResolutionTrendStatsBuilder
   def outcome_rows
     ConversationOutcome.where(assistant_id: assistant.id, started_at: current_window)
                        .pluck(:started_at, :first_captain_reply_at, :handoff_at, :handoff_reason_category, :first_human_reply_at, :resolved_at)
-                       .filter_map do |started_at, first_captain_reply_at, handoff_at, category, first_human_reply_at, resolved_at|
+                       .filter_map do |row|
+      started_at, first_captain_reply_at, handoff_at, category, first_human_reply_at, resolved_at = row
       involved = first_captain_reply_at.present? || (handoff_at.present? && category != 'usage_limit')
       next unless involved
 

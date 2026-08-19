@@ -3,9 +3,10 @@ class Captain::Llm::AssistantChatService
 
   DEFAULT_TEMPERATURE = 0.5
 
-  def initialize(assistant:, conversation:)
+  def initialize(assistant:, conversation: nil, source: nil)
     @assistant = assistant
     @conversation = conversation
+    @source = source
   end
 
   def generate_response(message_history:, additional_message: nil)
@@ -23,14 +24,17 @@ class Captain::Llm::AssistantChatService
   private
 
   def session_instrumentation_params(model)
+    metadata = { source: @source }.compact
+    if @conversation.present?
+      metadata[:conversation_id] = @conversation.id
+      metadata[:channel_type] = @conversation.inbox.channel_type
+    end
+
     {
       account_id: @assistant.account_id,
       assistant_id: @assistant.id,
       model: model,
-      metadata: {
-        conversation_id: @conversation.id,
-        channel_type: @conversation.inbox.channel_type
-      }
+      metadata: metadata
     }
   end
 
@@ -70,7 +74,7 @@ class Captain::Llm::AssistantChatService
   end
 
   def contact_information_section
-    contact = @conversation.contact
+    contact = @conversation&.contact
     return '' if contact.blank?
 
     attributes = ["name: #{contact.name}", "email: #{contact.email}"]

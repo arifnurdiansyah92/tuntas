@@ -9,36 +9,43 @@ class Captain::AssistantResolutionFlowBuilder
     involved = involved_episodes
     resolved = resolved_by_captain(involved)
     handoffs = involved.select { |episode| episode.handoff_at.present? }
-    closed_with_team = involved.count { |episode| episode.resolved_at.present? && episode.handoff_at.blank? && episode.first_human_reply_at.present? }
-    reopened = resolved.count { |episode| reopened_quickly?(episode) }
     reason_counts = handoff_reason_counts(handoffs)
+    stats = {
+      handled: involved.size,
+      resolved: resolved.size,
+      handoffs: handoffs.size,
+      closed_with_team: involved.count do |episode|
+        episode.resolved_at.present? && episode.handoff_at.blank? && episode.first_human_reply_at.present?
+      end,
+      reopened: resolved.count { |episode| reopened_quickly?(episode) }
+    }
 
     {
-      sankey: sankey(involved.size, resolved.size, handoffs.size, closed_with_team, reopened, reason_counts),
+      sankey: sankey(stats, reason_counts),
       handoff_distribution: handoff_distribution(reason_counts, handoffs.size)
     }
   end
 
   private
 
-  def sankey(handled, resolved, handoffs, closed_with_team, reopened, reason_counts)
+  def sankey(stats, reason_counts)
     reason_nodes = reason_flow_counts(reason_counts)
 
     {
       nodes: [
-        { id: :conversations_handled, count: handled },
-        { id: :resolved_by_captain, count: resolved },
-        { id: :handed_off, count: handoffs },
-        { id: :closed_with_team, count: closed_with_team },
-        { id: :reopened_within_7_days, count: reopened },
-        { id: :stayed_closed, count: resolved - reopened }
+        { id: :conversations_handled, count: stats[:handled] },
+        { id: :resolved_by_captain, count: stats[:resolved] },
+        { id: :handed_off, count: stats[:handoffs] },
+        { id: :closed_with_team, count: stats[:closed_with_team] },
+        { id: :reopened_within_7_days, count: stats[:reopened] },
+        { id: :stayed_closed, count: stats[:resolved] - stats[:reopened] }
       ] + reason_nodes.map { |id, count| { id: id, count: count } },
       links: [
-        { source: :conversations_handled, target: :resolved_by_captain, value: resolved },
-        { source: :conversations_handled, target: :handed_off, value: handoffs },
-        { source: :conversations_handled, target: :closed_with_team, value: closed_with_team },
-        { source: :resolved_by_captain, target: :reopened_within_7_days, value: reopened },
-        { source: :resolved_by_captain, target: :stayed_closed, value: resolved - reopened }
+        { source: :conversations_handled, target: :resolved_by_captain, value: stats[:resolved] },
+        { source: :conversations_handled, target: :handed_off, value: stats[:handoffs] },
+        { source: :conversations_handled, target: :closed_with_team, value: stats[:closed_with_team] },
+        { source: :resolved_by_captain, target: :reopened_within_7_days, value: stats[:reopened] },
+        { source: :resolved_by_captain, target: :stayed_closed, value: stats[:resolved] - stats[:reopened] }
       ] + reason_nodes.map { |id, count| { source: :handed_off, target: id, value: count } }
     }
   end

@@ -36,6 +36,7 @@ class Captain::CustomTool < ApplicationRecord
   validates :endpoint_url, presence: true
   validates :slug, presence: true, uniqueness: { scope: :account_id }
   validate :validate_param_schema
+  validate :validate_endpoint_url
 
   before_validation :generate_slug, on: :create
 
@@ -68,5 +69,32 @@ class Captain::CustomTool < ApplicationRecord
 
     keys = entry.keys.map(&:to_s)
     (keys - PARAM_SCHEMA_KEYS).empty? && (PARAM_SCHEMA_REQUIRED_KEYS - keys).empty?
+  end
+
+  # The endpoint must point at a public HTTP(S) host — never localhost, private
+  # ranges, or internal hostnames the assistant could use to reach the network.
+  def validate_endpoint_url
+    return if endpoint_url.blank?
+
+    uri = URI.parse(endpoint_url.to_s.gsub(/{{.*?}}/, 'template'))
+    errors.add(:endpoint_url, 'must be a public HTTP(S) URL') unless public_http_host?(uri)
+  rescue URI::Error
+    errors.add(:endpoint_url, 'must be a public HTTP(S) URL')
+  end
+
+  def public_http_host?(uri)
+    return false unless uri.is_a?(URI::HTTP) && uri.host.present?
+
+    host = uri.host.downcase
+    return false if host == 'localhost' || host.end_with?('.local', '.internal')
+
+    !private_ip_literal?(host)
+  end
+
+  def private_ip_literal?(host)
+    ip = IPAddr.new(host)
+    ip.private? || ip.loopback? || ip.link_local?
+  rescue IPAddr::InvalidAddressError
+    false
   end
 end

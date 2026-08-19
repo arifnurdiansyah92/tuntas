@@ -19,6 +19,10 @@ class Captain::AssistantPolicy < ApplicationPolicy
     true
   end
 
+  def summary?
+    true
+  end
+
   def tools?
     @account_user.administrator?
   end
