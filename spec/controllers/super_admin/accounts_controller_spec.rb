@@ -186,17 +186,21 @@ RSpec.describe 'Super Admin accounts API', type: :request do
     end
 
     context 'when it is an authenticated user' do
+      # freeze_time pins the reset timestamps; on slow CI hosts the request alone
+      # can take longer than the asserted 10-second window.
       it 'shows the list of accounts' do
-        expect(account.cache_keys.keys).to contain_exactly(:inbox, :label, :team, :canned_response)
-        sign_in(super_admin, scope: :super_admin)
+        freeze_time do
+          expect(account.cache_keys.keys).to contain_exactly(:inbox, :label, :team, :canned_response)
+          sign_in(super_admin, scope: :super_admin)
 
-        now_timestamp = Time.now.utc.to_i
-        post "/super_admin/accounts/#{account.id}/reset_cache"
-        expect(response).to have_http_status(:redirect)
-        expect(flash[:notice]).to eq('Cache keys cleared')
+          now_timestamp = Time.now.utc.to_i
+          post "/super_admin/accounts/#{account.id}/reset_cache"
+          expect(response).to have_http_status(:redirect)
+          expect(flash[:notice]).to eq('Cache keys cleared')
 
-        range = now_timestamp..(now_timestamp + 10)
-        expect(account.reload.cache_keys.values.all? { |v| range.cover?(v.to_i) }).to be(true)
+          range = now_timestamp..(now_timestamp + 10)
+          expect(account.reload.cache_keys.values.all? { |v| range.cover?(v.to_i) }).to be(true)
+        end
       end
 
       it 'clears conversation unread count cache' do
