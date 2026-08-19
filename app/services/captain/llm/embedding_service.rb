@@ -1,28 +1,13 @@
 class Captain::Llm::EmbeddingService
-  DEFAULT_MODEL = 'text-embedding-3-small'.freeze
-
-  def get_embedding(content, model: DEFAULT_MODEL)
-    response = HTTParty.post(
-      "#{api_base}/embeddings",
-      headers: {
-        'Content-Type' => 'application/json',
-        'Authorization' => "Bearer #{api_key}"
-      },
-      body: { input: content, model: model }.to_json
-    )
-    raise "Embedding request failed with status #{response.code}" unless response.success?
-
-    response.parsed_response.dig('data', 0, 'embedding')
+  def self.embedding_model
+    InstallationConfig.find_by(name: 'CAPTAIN_EMBEDDING_MODEL')&.value.presence || LlmConstants::DEFAULT_EMBEDDING_MODEL
   end
 
-  private
-
-  def api_key
-    InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_API_KEY')&.value
+  def initialize(account_id: nil)
+    @account_id = account_id
   end
 
-  def api_base
-    endpoint = InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.value.presence || 'https://api.openai.com'
-    "#{endpoint.chomp('/')}/v1"
+  def get_embedding(content)
+    RubyLLM.embed(content, model: self.class.embedding_model).vectors
   end
 end

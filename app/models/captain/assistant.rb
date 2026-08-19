@@ -41,6 +41,7 @@ class Captain::Assistant < ApplicationRecord
                              inverse_of: :captain_assistant
   has_many :inboxes, through: :captain_inboxes
   has_many :copilot_threads, dependent: :destroy_async, inverse_of: :assistant
+  has_many :faq_suggestions, class_name: 'Captain::FaqSuggestion', dependent: :destroy_async, inverse_of: :assistant
   has_many :agent_sessions, class_name: 'Captain::AgentSession', dependent: :destroy_async, inverse_of: :assistant
 
   validates :name, presence: true

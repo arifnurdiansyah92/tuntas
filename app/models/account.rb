@@ -180,6 +180,12 @@ class Account < ApplicationRecord
     true
   end
 
+  # tracked for usage reporting; cloud billing enforcement is not part of this fork
+  def increment_response_usage
+    internal_attributes['captain_responses_usage'] = internal_attributes.fetch('captain_responses_usage', 0) + 1
+    save!
+  end
+
   def locale_english_name
     # the locale can also be something like pt_BR, en_US, fr_FR, etc.
     # the format is `<locale_code>_<country_code>`
