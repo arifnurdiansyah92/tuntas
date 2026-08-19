@@ -105,6 +105,11 @@ class Account < ApplicationRecord
   has_many :users, through: :account_users
   has_many :web_widgets, dependent: :destroy_async, class_name: '::Channel::WebWidget'
   has_many :webhooks, dependent: :destroy_async
+  has_many :captain_assistants, class_name: 'Captain::Assistant', dependent: :destroy_async
+  has_many :captain_custom_tools, class_name: 'Captain::CustomTool', dependent: :destroy_async
+  has_many :captain_documents, class_name: 'Captain::Document', dependent: :destroy_async
+  has_many :conversation_outcomes, dependent: :destroy_async
+  has_many :copilot_threads, dependent: :destroy_async
   has_one :account_saml_settings, dependent: :destroy
   has_many :custom_roles, dependent: :destroy_async
   has_many :sla_policies, dependent: :destroy_async

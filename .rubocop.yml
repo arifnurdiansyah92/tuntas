@@ -18,6 +18,8 @@ Metrics/ClassLength:
   Exclude:
     - 'app/models/message.rb'
     - 'app/models/conversation.rb'
+    - 'app/models/account.rb'
+    - 'app/models/captain/assistant.rb'
     - 'config/initializers/rack_attack.rb'
 
 Metrics/MethodLength:
