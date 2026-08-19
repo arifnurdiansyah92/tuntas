@@ -45,7 +45,7 @@ class Captain::Tools::SimplePageCrawlService
     if sitemap?
       sitemap_document.remove_namespaces!.css('loc').map(&:text)
     else
-      parsed_html.css('a[href]').map { |anchor| absolutize(anchor['href']) }.compact.uniq
+      parsed_html.css('a[href]').filter_map { |anchor| absolutize(anchor['href']) }.uniq
     end
   end
 

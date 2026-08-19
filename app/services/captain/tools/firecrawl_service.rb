@@ -15,21 +15,27 @@ class Captain::Tools::FirecrawlService
         'Authorization' => "Bearer #{@api_key}",
         'Content-Type' => 'application/json'
       },
-      body: {
-        url: url,
-        maxDiscoveryDepth: 50,
-        sitemap: 'include',
-        limit: crawl_limit,
-        webhook: { url: webhook_url },
-        scrapeOptions: {
-          onlyMainContent: true,
-          formats: ['markdown'],
-          excludeTags: FIRECRAWL_EXCLUDE_TAGS,
-          maxAge: 0
-        }
-      }.to_json
+      body: crawl_payload(url, webhook_url, crawl_limit).to_json
     )
   rescue StandardError => e
     raise "Failed to crawl URL: #{e.message}"
+  end
+
+  private
+
+  def crawl_payload(url, webhook_url, crawl_limit)
+    {
+      url: url,
+      maxDiscoveryDepth: 50,
+      sitemap: 'include',
+      limit: crawl_limit,
+      webhook: { url: webhook_url },
+      scrapeOptions: {
+        onlyMainContent: true,
+        formats: ['markdown'],
+        excludeTags: FIRECRAWL_EXCLUDE_TAGS,
+        maxAge: 0
+      }
+    }
   end
 end

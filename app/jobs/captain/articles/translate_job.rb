@@ -12,10 +12,12 @@ class Captain::Articles::TranslateJob < ApplicationJob
     article = account.articles.find(article_id)
     language_name = language_name_for(target_locale)
 
-    translated_title = translate!(account, article.title, language_name, :title)
-    translated_content = article.content.presence && translate!(account, article.content, language_name, :content)
+    translated = {
+      title: translate!(account, article.title, language_name, :title),
+      content: article.content.presence && translate!(account, article.content, language_name, :content)
+    }
 
-    upsert_translation(account, article, target_locale, target_category_id, user, translated_title, translated_content)
+    upsert_translation(article, translated, target_locale: target_locale, category_id: target_category_id, user: user)
   end
 
   private
@@ -35,27 +37,26 @@ class Captain::Articles::TranslateJob < ApplicationJob
     result[:message]
   end
 
-  def upsert_translation(account, article, target_locale, target_category_id, user, title, content)
-    translation = account.articles.find_by(associated_article_id: article.id, locale: target_locale)
+  def upsert_translation(article, translated, target_locale:, category_id:, user:)
+    articles = article.account.articles
+    translation = articles.find_by(associated_article_id: article.id, locale: target_locale)
     attributes = {
-      title: title,
-      content: content,
+      title: translated[:title],
+      content: translated[:content],
       description: article.description,
-      category_id: target_category_id
+      category_id: category_id
     }
 
-    if translation
-      translation.update!(attributes)
-    else
-      account.articles.create!(
-        attributes.merge(
-          portal: article.portal,
-          locale: target_locale,
-          author_id: user.id,
-          status: :draft,
-          associated_article_id: article.id
-        )
+    return translation.update!(attributes) if translation
+
+    articles.create!(
+      attributes.merge(
+        portal: article.portal,
+        locale: target_locale,
+        author_id: user.id,
+        status: :draft,
+        associated_article_id: article.id
       )
-    end
+    )
   end
 end
