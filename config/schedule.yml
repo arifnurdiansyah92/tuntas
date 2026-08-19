@@ -81,3 +81,17 @@ trigger_slas_for_accounts_job:
   cron: '0 * * * *'
   class: 'Sla::TriggerSlasForAccountsJob'
   queue: scheduled_jobs
+
+# executed every 30 minutes
+# evaluates pending Captain conversations for auto-resolution or handoff
+captain_pending_conversations_resolution_scheduler_job:
+  cron: '*/30 * * * *'
+  class: 'Captain::InboxPendingConversationsResolutionSchedulerJob'
+  queue: scheduled_jobs
+
+# executed every 6 hours
+# schedules Captain document re-syncs for accounts with auto-sync enabled
+captain_document_schedule_syncs_job:
+  cron: '0 */6 * * *'
+  class: 'Captain::Documents::ScheduleSyncsJob'
+  queue: scheduled_jobs

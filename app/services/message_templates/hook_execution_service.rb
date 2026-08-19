@@ -5,7 +5,10 @@ class MessageTemplates::HookExecutionService
     return if conversation.last_incoming_message.blank?
     return if message.auto_reply_email?
 
-    trigger_templates
+    captain_hook = Captain::MessageHookService.new(message: message)
+    captain_hook.perform
+
+    trigger_templates unless captain_hook.suppress_templates?
   end
 
   private

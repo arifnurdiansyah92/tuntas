@@ -119,6 +119,13 @@ class Message < ApplicationRecord
   scope :chat, -> { where.not(message_type: :activity).where(private: false) }
   scope :non_activity_messages, -> { where.not(message_type: :activity).reorder('created_at desc') }
   scope :today, -> { where("date_trunc('day', created_at) = ?", Date.current) }
+  # Customer messages that should trigger (or extend the wait of) a Captain
+  # response: incoming and not an automated email auto-reply. `#>> '{}'` unwraps
+  # the double-encoded JSON string that `store` writes into this json column.
+  scope :captain_response_triggering, lambda {
+    where(message_type: :incoming)
+      .where("COALESCE((content_attributes #>> '{}')::json -> 'email' ->> 'auto_reply', 'false') != 'true'")
+  }
   scope :voice_calls, -> { where(content_type: :voice_call) }
 
   # TODO: Get rid of default scope
