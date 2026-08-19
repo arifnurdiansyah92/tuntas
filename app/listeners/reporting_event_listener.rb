@@ -123,32 +123,7 @@ class ReportingEventListener < BaseListener
     create_conversation_opened_event(conversation, time_since_resolved, business_hours_value, start_time, event_end_time)
   end
 
-  def captain_conversation_resolved(event)
-    create_captain_inference_event(event, 'conversation_captain_inference_resolved')
-  end
-
-  def captain_conversation_handed_off(event)
-    create_captain_inference_event(event, 'conversation_captain_inference_handoff')
-  end
-
   private
-
-  def create_captain_inference_event(event, name)
-    return unless event.data[:source] == 'inference'
-
-    conversation = event.data[:conversation]
-    reporting_event = ReportingEvent.new(
-      name: name,
-      value: event.timestamp.to_i - conversation.created_at.to_i,
-      account_id: conversation.account_id,
-      inbox_id: conversation.inbox_id,
-      conversation_id: conversation.id,
-      event_start_time: conversation.created_at,
-      event_end_time: event.timestamp
-    )
-    reporting_event.save!
-    safe_rollup(reporting_event)
-  end
 
   def create_conversation_opened_event(conversation, time_since_resolved, business_hours_value, start_time, event_end_time)
     reporting_event = ReportingEvent.new(
