@@ -19,7 +19,7 @@ class Captain::Assistant < ApplicationRecord
 
   CITATION_SOURCES_STATE_KEY = :captain_citation_sources
   RESPONSE_WINDOWS = %w[always business_hours outside_business_hours].freeze
-  AUTO_RESOLVE_MODES = %w[legacy disabled auto].freeze
+  AUTO_RESOLVE_MODES = %w[evaluated legacy disabled auto].freeze
   AUTO_RESOLVE_STEP_MINUTES = 5
   DEFAULT_INACTIVITY_THRESHOLD_MINUTES = 60
   GROUP_OPERATORS = %w[and or].freeze
@@ -88,10 +88,25 @@ class Captain::Assistant < ApplicationRecord
   end
 
   def responds_to_audience?(contact, conversation)
-    audience = config['audience']
-    return true if audience.blank?
+    Captain::AudienceMatcher.new(config['audience']).matches?(contact, conversation)
+  end
 
-    evaluate_audience_node(audience.deep_stringify_keys, contact, conversation)
+  def citations_enabled?
+    config['feature_citation'].present?
+  end
+
+  # Maps a trusted {citation_index => document_id} run mapping to the URLs that
+  # may be shown to customers. Non-public links (PDFs, unresolvable or private
+  # hosts) and unknown documents are dropped.
+  def customer_visible_citation_urls(citation_sources)
+    return {} unless citations_enabled?
+    return {} unless citation_sources.is_a?(Hash) && citation_sources.present?
+
+    docs = documents.where(id: citation_sources.values).index_by(&:id)
+    citation_sources.each_with_object({}) do |(index, document_id), memo|
+      link = docs[document_id]&.external_link
+      memo[index] = link if customer_visible_link?(link)
+    end
   end
 
   def push_event_data
@@ -225,38 +240,27 @@ class Captain::Assistant < ApplicationRecord
     CUSTOM_ATTRIBUTE_OPERATORS
   end
 
-  def evaluate_audience_node(node, contact, conversation)
-    if node.key?('operator') || node.key?('conditions')
-      results = Array(node['conditions']).map { |child| evaluate_audience_node(child, contact, conversation) }
-      node['operator'] == 'or' ? results.any? : results.all?
-    else
-      evaluate_audience_leaf(node, contact)
-    end
+  def customer_visible_link?(link)
+    return false if link.blank? || link.start_with?('PDF: ')
+
+    uri = URI.parse(link)
+    return false unless uri.is_a?(URI::HTTP) && uri.host.present?
+    return false if uri.path.to_s.downcase.end_with?('.pdf')
+
+    resolvable_public_host?(uri.host)
+  rescue URI::Error
+    false
   end
 
-  OPERATOR_PREDICATES = {
-    'equal_to' => ->(value, values) { values.include?(value.to_s) },
-    'not_equal_to' => ->(value, values) { values.exclude?(value.to_s) },
-    'contains' => ->(value, values) { values.any? { |candidate| value.to_s.downcase.include?(candidate.downcase) } },
-    'does_not_contain' => ->(value, values) { values.none? { |candidate| value.to_s.downcase.include?(candidate.downcase) } },
-    'is_present' => ->(value, _values) { value.present? },
-    'is_not_present' => ->(value, _values) { value.blank? }
-  }.freeze
+  def resolvable_public_host?(host)
+    addresses = Resolv.getaddresses(host)
+    return false if addresses.blank?
 
-  def evaluate_audience_leaf(leaf, contact)
-    predicate = OPERATOR_PREDICATES[leaf['filter_operator']]
-    return false if predicate.blank?
-
-    value = contact_attribute_value(contact, leaf['attribute_key'])
-    predicate.call(value, Array(leaf['values']).map(&:to_s))
-  end
-
-  def contact_attribute_value(contact, attribute_key)
-    if STANDARD_AUDIENCE_ATTRIBUTES.key?(attribute_key) && contact.respond_to?(attribute_key)
-      value = contact.public_send(attribute_key)
-      return value unless value.nil?
+    addresses.none? do |address|
+      ip = IPAddr.new(address)
+      ip.private? || ip.loopback? || ip.link_local?
+    rescue IPAddr::InvalidAddressError
+      true
     end
-
-    contact.additional_attributes&.dig(attribute_key) || contact.custom_attributes&.dig(attribute_key)
   end
 end

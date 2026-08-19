@@ -8,13 +8,14 @@ class Captain::Llm::AssistantChatService
     @conversation = conversation
   end
 
-  def generate_response(message_history:)
+  def generate_response(message_history:, additional_message: nil)
     model = Llm::FeatureRouter.resolve(feature: 'assistant', account: @assistant.account).fetch(:model)
 
     instrument_agent_session(session_instrumentation_params(model)) do
       chat = build_chat(model)
-      replay_history(chat, message_history[0...-1])
-      response = ask_current_message(chat, message_history.last)
+      history = additional_message.present? ? message_history + [{ role: 'user', content: additional_message }] : message_history
+      replay_history(chat, history[0...-1])
+      response = ask_current_message(chat, history.last)
       parse_response(response)
     end
   end

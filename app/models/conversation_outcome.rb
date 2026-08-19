@@ -23,7 +23,8 @@
 #  inbox_id                :bigint           not null
 #
 class ConversationOutcome < ApplicationRecord
-  HANDOFF_REASON_CATEGORIES = %w[customer_request unsupported_request missing_information policy_restriction escalation other].freeze
+  HANDOFF_REASON_CATEGORIES = %w[customer_request unsupported_request missing_information missing_knowledge policy_restriction escalation
+                                 pending_clarification tool_failure other].freeze
   EPISODE_TRIGGERS = %w[initial reopen].freeze
 
   belongs_to :account

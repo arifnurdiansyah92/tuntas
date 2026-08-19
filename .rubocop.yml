@@ -20,6 +20,7 @@ Metrics/ClassLength:
     - 'app/models/conversation.rb'
     - 'app/models/account.rb'
     - 'app/models/captain/assistant.rb'
+    - 'app/services/captain/assistant/agent_runner_service.rb'
     - 'config/initializers/rack_attack.rb'
 
 Metrics/MethodLength:

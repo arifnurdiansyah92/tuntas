@@ -77,6 +77,8 @@ class Inbox < ApplicationRecord
   has_one :assignment_policy, through: :inbox_assignment_policy
   has_one :agent_bot_inbox, dependent: :destroy_async
   has_one :agent_bot, through: :agent_bot_inbox
+  has_one :captain_inbox, dependent: :destroy_async
+  has_one :captain_assistant, through: :captain_inbox, source: :captain_assistant
   has_many :webhooks, dependent: :destroy_async
   has_many :hooks, dependent: :destroy_async, class_name: 'Integrations::Hook'
 
@@ -144,6 +146,8 @@ class Inbox < ApplicationRecord
   def web_widget?
     channel_type == 'Channel::WebWidget'
   end
+
+  def captain_active? = captain_assistant.present? && account.feature_enabled?('captain_integration')
 
   def api?
     channel_type == 'Channel::Api'

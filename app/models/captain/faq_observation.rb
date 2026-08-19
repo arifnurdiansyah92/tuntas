@@ -17,7 +17,7 @@ class Captain::FaqObservation < ApplicationRecord
   self.table_name = 'captain_faq_observations'
 
   belongs_to :account
-  belongs_to :conversation
+  belongs_to :conversation, class_name: '::Conversation'
   belongs_to :faq_suggestion, class_name: 'Captain::FaqSuggestion', optional: true, inverse_of: :observations
 
   enum :status, { attached: 0, discarded: 1 }

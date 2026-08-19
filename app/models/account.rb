@@ -172,7 +172,15 @@ class Account < ApplicationRecord
   def usage_limits
     {
       agents: TuntasApp.max_limit.to_i,
-      inboxes: TuntasApp.max_limit.to_i
+      inboxes: TuntasApp.max_limit.to_i,
+      captain: captain_usage_limits
+    }
+  end
+
+  def captain_usage_limits
+    {
+      documents: captain_usage_entry('captain_documents_usage'),
+      responses: captain_usage_entry('captain_responses_usage')
     }
   end
 
@@ -184,6 +192,16 @@ class Account < ApplicationRecord
   def increment_response_usage
     internal_attributes['captain_responses_usage'] = internal_attributes.fetch('captain_responses_usage', 0) + 1
     save!
+  end
+
+  def captain_usage_entry(usage_key)
+    consumed = internal_attributes.fetch(usage_key, 0).to_i
+    limit = TuntasApp.max_limit.to_i
+    {
+      total_count: limit,
+      consumed: consumed,
+      current_available: [limit - consumed, 0].max
+    }
   end
 
   def locale_english_name

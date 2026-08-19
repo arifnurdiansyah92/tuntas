@@ -32,6 +32,15 @@ class Captain::AssistantResponse < ApplicationRecord
 
   before_validation :ensure_account
 
+  SEARCH_RESULT_LIMIT = 5
+
+  def self.search(query)
+    embedding = Captain::Llm::EmbeddingService.new.get_embedding(query)
+    return [] if embedding.blank?
+
+    approved.nearest_neighbors(:embedding, embedding, distance: 'cosine').limit(SEARCH_RESULT_LIMIT)
+  end
+
   private
 
   def ensure_account

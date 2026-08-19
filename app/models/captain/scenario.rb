@@ -15,6 +15,7 @@
 #
 class Captain::Scenario < ApplicationRecord
   include Concerns::CaptainToolsHelpers
+  include Concerns::Agentable
 
   self.table_name = 'captain_scenarios'
 
@@ -57,6 +58,23 @@ class Captain::Scenario < ApplicationRecord
   end
 
   private
+
+  def agent_name
+    handoff_key
+  end
+
+  def prompt_context
+    {
+      title: title,
+      description: description,
+      instruction: instruction,
+      assistant_name: assistant.name
+    }
+  end
+
+  def template_name
+    'captain/scenario'
+  end
 
   def resolve_tool_references
     tool_ids = extract_tool_ids_from_text(instruction)
