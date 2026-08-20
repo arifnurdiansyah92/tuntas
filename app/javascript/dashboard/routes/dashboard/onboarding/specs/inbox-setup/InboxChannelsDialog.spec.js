@@ -10,9 +10,7 @@ const { isOnTuntasCloud, isMetaInboxCreationDisabled } = vi.hoisted(() => ({
 vi.mock('vue-i18n', () => ({ useI18n: () => ({ t: key => key }) }));
 vi.mock('dashboard/composables/store', () => ({
   useMapGetter: getter =>
-    getter === 'globalConfig/isOnTuntasCloud'
-      ? isOnTuntasCloud
-      : { value: {} },
+    getter === 'globalConfig/isOnTuntasCloud' ? isOnTuntasCloud : { value: {} },
 }));
 vi.mock('dashboard/composables/useAccount', () => ({
   useAccount: () => ({

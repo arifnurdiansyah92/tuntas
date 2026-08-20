@@ -6,10 +6,7 @@ export const isEmptyObject = obj => {
 };
 
 export const sendMessage = msg => {
-  window.parent.postMessage(
-    `tuntas-widget:${JSON.stringify({ ...msg })}`,
-    '*'
-  );
+  window.parent.postMessage(`tuntas-widget:${JSON.stringify({ ...msg })}`, '*');
 };
 
 export const IFrameHelper = {

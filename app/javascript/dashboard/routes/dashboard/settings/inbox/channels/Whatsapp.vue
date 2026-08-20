@@ -17,11 +17,8 @@ import { META_RESTRICTION_STATUS_URL } from 'dashboard/constants/globals';
 const route = useRoute();
 const router = useRouter();
 const { t } = useI18n();
-const {
-  isCloudFeatureEnabled,
-  isOnTuntasCloud,
-  isMetaInboxCreationDisabled,
-} = useAccount();
+const { isCloudFeatureEnabled, isOnTuntasCloud, isMetaInboxCreationDisabled } =
+  useAccount();
 
 const PROVIDER_TYPES = {
   WHATSAPP: 'whatsapp',

@@ -8,9 +8,7 @@ import { useMapGetter } from 'dashboard/composables/store';
 const { isAdmin } = useAdmin();
 const isOnTuntasCloud = useMapGetter('globalConfig/isOnTuntasCloud');
 
-const showBillingLink = computed(
-  () => isAdmin.value && isOnTuntasCloud.value
-);
+const showBillingLink = computed(() => isAdmin.value && isOnTuntasCloud.value);
 
 const toggleSupportWidgetVisibility = () => {
   if (window.$tuntas) {

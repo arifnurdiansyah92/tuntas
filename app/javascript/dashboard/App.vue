@@ -111,8 +111,7 @@ export default {
         accountId: this.currentAccountId,
       });
       const account = this.getAccount(this.currentAccountId);
-      const { locale, latest_tuntas_version: latestTuntasVersion } =
-        account;
+      const { locale, latest_tuntas_version: latestTuntasVersion } = account;
       const { pubsub_token: pubsubToken } = this.currentUser || {};
       // If user locale is set, use it; otherwise use account locale
       this.setLocale(this.uiSettings?.locale || locale);

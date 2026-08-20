@@ -22,8 +22,7 @@ export default [
   {
     id: 3,
     name: 'Business SLA',
-    description:
-      'Tuntas cloud Business and self-hosted Business customers SLA',
+    description: 'Tuntas cloud Business and self-hosted Business customers SLA',
     first_response_time_threshold: null,
     next_response_time_threshold: null,
     resolution_time_threshold: null,
