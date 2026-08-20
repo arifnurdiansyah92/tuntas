@@ -39,7 +39,6 @@ jobs:
           - 6379:6379
     env:
       RAILS_ENV: test
-      FRONTEND_URL: http://www.example.com
       POSTGRES_HOST: localhost
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: postgres
@@ -56,6 +55,9 @@ jobs:
           node-version: 24
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: bundle exec rails db:prepare
+      # db:prepare would run db/seeds.rb and the db:migrate ConfigLoader hook,
+      # both of which populate rows (demo data, installation configs) that the
+      # specs expect to create themselves. Load the bare schema like upstream CI.
+      - run: bundle exec rails db:create db:schema:load
       - run: bundle exec rails zeitwerk:check
       - run: bundle exec rspec --no-color
