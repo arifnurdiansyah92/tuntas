@@ -85,6 +85,10 @@ RSpec.configure do |config|
   # examples (a leaked non-UTC zone shifts every date-boundary assertion for the
   # rest of the process during the hours where the zone's date differs from UTC).
   config.around { |example| Time.use_zone(Rails.application.config.time_zone) { example.run } }
+  # CurrentAttributes reset per request, not per example; a leaked Current.account
+  # from a rolled-back example poisons later specs (e.g. Devise mails enqueued
+  # with a dead account GlobalID fail deserialization inside mail matchers).
+  config.before { Current.reset }
   config.include ActionCable::TestHelper
   config.include ActiveJob::TestHelper
 
