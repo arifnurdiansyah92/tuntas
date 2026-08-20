@@ -1,6 +1,12 @@
 # OmniAuth configuration
-# Sets the full host URL for callbacks and proper redirect handling
-OmniAuth.config.full_host = ENV.fetch('FRONTEND_URL', 'http://localhost:3000')
+# Sets the full host URL for callbacks and proper redirect handling.
+# Read FRONTEND_URL lazily: freezing it at boot lets it diverge from the host
+# the app is actually serving (e.g. a spec stubbing the env), and the callback
+# then runs on a foreign host whose post-login redirect raises
+# ActionController::Redirecting::UnsafeRedirectError.
+OmniAuth.config.full_host = lambda { |env|
+  ENV['FRONTEND_URL'].presence || Rack::Request.new(env).base_url
+}
 
 # SAML SP-initiated SSO enters via a browser redirect (GET); POST-only would 404 the request phase
 OmniAuth.config.allowed_request_methods = %i[post get]
